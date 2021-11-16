@@ -13,7 +13,7 @@ public class MyTest extends Application {
 
     private File myf = new File("src/data", "questions.txt");
     private int totQues = 0;
-    private int activeQ = 1; //first q
+    private int activeQ = 1; //first question
     private Label labQuesNo, labQues, labName;
     private ImageView imgQues;
     private Label labA, labB, labC, labD;
@@ -28,14 +28,14 @@ public class MyTest extends Application {
     private LinkedList<Question> quesList = new LinkedList<Question>();
 
     public void start(Stage mainStage) {
-        mainStage.setTitle("Knowledge Test 1");
+        mainStage.setTitle("Miss Universe Knowledge Test");
         Label labNameDesc = new Label("Name");
         labNameDesc.setLayoutX(25);
         labNameDesc.setLayoutY(25);
         labName = new Label("");
         labName.setLayoutX(75);
         labName.setLayoutY(25);
-        labName.setStyle("-fx-pref-width: 100px;-fx-border-color:red;");
+        labName.setStyle("-fx-pref-width: 100px;-fx-border-color:black;");
 
         labQuesNo = new Label("");
         labQuesNo.setLayoutX(25);
@@ -45,16 +45,17 @@ public class MyTest extends Application {
         labQues = new Label("");
         labQues.setLayoutX(25);
         labQues.setLayoutY(100);
-        labQues.setStyle("-fx-font-size: 12pt;-fx-font-weight:bold;");
+        labQues.setStyle("-fx-font-size: 10pt;-fx-font-weight:bold;");
 
         imgQues = new ImageView();
         imgQues.setLayoutX(25);
         imgQues.setLayoutY(75);
-        imgQues.setFitHeight(150); //150
-        imgQues.setFitWidth(300); //150
+        imgQues.setFitHeight(280);
+        imgQues.setFitWidth(275);
 
         labA = new Label("A");
         labA.setLayoutX(25);
+        //labA.setLayoutY(30);
         radChoice1 = new RadioButton("");
         radChoice1.setLayoutX(50);
 
@@ -81,7 +82,7 @@ public class MyTest extends Application {
         radChoice4.setToggleGroup(grpChoices);
         paneC = new Pane();
         paneC.setLayoutX(25);
-        paneC.setLayoutY(75);
+        paneC.setLayoutY(75); //75
         paneC.getChildren().add(imgQues);
 
         paneC.getChildren().add(labA);
@@ -96,18 +97,18 @@ public class MyTest extends Application {
         paneC.getChildren().add(labD);
         paneC.getChildren().add(radChoice4);
 
-        btnPrev = new Button("Prev");
+        btnPrev = new Button("Previous");
         btnPrev.setLayoutX(25);
-        btnPrev.setLayoutY(550);
+        btnPrev.setLayoutY(675);
         btnPrev.setStyle("-fx-pref-width: 75px;");
         btnPrev.setDisable(true);
         btnNext = new Button("Next");
         btnNext.setLayoutX(125);
-        btnNext.setLayoutY(550);
+        btnNext.setLayoutY(675);
         btnNext.setStyle("-fx-pref-width: 75px;");
         btnSubmit = new Button("End");
         btnSubmit.setLayoutX(300);
-        btnSubmit.setLayoutY(550);
+        btnSubmit.setLayoutY(675);
         btnSubmit.setStyle("-fx-pref-width: 75px;");
 
         readFromFile();
@@ -167,7 +168,7 @@ public class MyTest extends Application {
         mainPane.getChildren().add(btnPrev);
         mainPane.getChildren().add(btnSubmit);
 
-        mainScene = new Scene(mainPane, 750, 800); //400 600
+        mainScene = new Scene(mainPane, 650, 800); //400 600 then latest is 600, 800
         mainStage.setScene(mainScene);
         reloadQues();
         winGreeting = new MyGreeting();
@@ -189,7 +190,7 @@ public class MyTest extends Application {
 
         //type A
         if (quesList.get(activeQ-1).getType() == 1) {
-            labA.setLayoutY(75);
+            labA.setLayoutY(75); //for the label A,B,C,D
             radChoice1.setLayoutY(75);
             labB.setLayoutY(125);
             radChoice2.setLayoutY(125);
@@ -203,14 +204,14 @@ public class MyTest extends Application {
             File pFile = new File("src/data/" + quesList.get(activeQ-1).getQuesPic());
             Image img = new Image(pFile.toURI().toString());
             imgQues.setImage(img);
-            labA.setLayoutY(275);
-            radChoice1.setLayoutY(275);
-            labB.setLayoutY(325);
-            radChoice2.setLayoutY(325);
-            labC.setLayoutY(375);
-            radChoice3.setLayoutY(375);
-            labD.setLayoutY(425);
-            radChoice4.setLayoutY(425);
+            labA.setLayoutY(375);
+            radChoice1.setLayoutY(375);
+            labB.setLayoutY(425);
+            radChoice2.setLayoutY(425);
+            labC.setLayoutY(475);
+            radChoice3.setLayoutY(475);
+            labD.setLayoutY(525);
+            radChoice4.setLayoutY(525); //where u change the x and y placement
         }
 
         radChoice1.setSelected(quesList.get(activeQ-1).getSelected(0));
@@ -247,7 +248,6 @@ public class MyTest extends Application {
                 choices[1] = sline.next();
                 choices[2] = sline.next();
                 choices[3] = sline.next();
-
                 sline.close();
                 ques = new Question(type, answer, theQues, choices, quesPic);
                 quesList.add(ques);
