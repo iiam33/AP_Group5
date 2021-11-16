@@ -188,7 +188,7 @@ public class MyTest extends Application {
         imgQues.setImage(null);
 
         //type A
-        if (quesList.get(activeQ-1).getType() == 2) {
+        if (quesList.get(activeQ-1).getType() == 1) {
             labA.setLayoutY(75);
             radChoice1.setLayoutY(75);
             labB.setLayoutY(125);
