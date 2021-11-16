@@ -1,5 +1,19 @@
-4
-1:B:Who designed the Eiffel Tower?:Minah:Mamat:Joyah
-2:C:Where is this building located?:klcc.jpg:Tokyo:Paris:Kuala Lumpur
-1:C:Who shot JF Kennedy?:Mamat:Minah:None of the above
-1:A:Who created IPhone?:Apple:Isee:Idonno
+15
+1:C:In what year was Kuwait invaded by Iraq, thus sparking the gulf war:1991:1988:1990:1989
+2:A:Which country does the flag belong to?:kuwaitflag.jpg:Palestine:Kuwait:Jordan:United Arab Emirates
+1:D:What is the official name of Kuwait?:Kuwait Emirate:Sultanate of Kuwait:Sheikhdom of Kuwait:State of Kuwait
+1:B:What is the most popular food in Latvia?:Cheese:Grey peas and bacon:Fish:Salmon and Teriyaki
+2:D:Where is the capital of Latvia?:latvia.jpg:Manila:London:Beijing:Riga
+1:A:What is the most popular sport in Latvia?:Ice Hockey:Badminton:Basketball:Tennis
+1:A:How was Kiribati formerly known?:Gilbert Islands:Pangkor Islands:Obi Islands:Batan Islands
+1:A:When did UK annex Banaba?:1900:2012:1957:1892
+1:D:Which continent is Laos located in?:Europe:Africa:Australia:Asia
+2:B:The image shows a capital of a country. Which country is the capital in the image belongs to?:laoscapital.jpg:Myanmmar:Laos:Thailand:Brunei
+2:D:What is the name of the country highlighted in the map?:countrymaplaos.jpg:Vietnam:Thailand:Cambodia:Laos
+1:A:What is the national food of kyrgyzstan?:Beschbarmak:Saltah:Kabsa:Kimchi
+1:A:What is the capital of Kyrgyzstan?:Hanoi:Lilonwe:Bishkek:Pretoria
+2:A:Who is this?:kyrgyz.jpg:Akylbek Japarov:Muhammetkaliy Abulgaziyev:Donald Trump:Mamat
+2:B:What is the name of this dish? Please select the correct answer.:kyrgyzdish.jpg:Curry Puff:Borsok:Fried Wantan:Baklava
+
+
+

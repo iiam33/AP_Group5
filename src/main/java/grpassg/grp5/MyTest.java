@@ -13,11 +13,11 @@ public class MyTest extends Application {
 
     private File myf = new File("src/data", "questions.txt");
     private int totQues = 0;
-    private int activeQ = 1;
+    private int activeQ = 1; //first q
     private Label labQuesNo, labQues, labName;
     private ImageView imgQues;
-    private Label labA, labB, labC;
-    private RadioButton radChoice1, radChoice2, radChoice3;
+    private Label labA, labB, labC, labD;
+    private RadioButton radChoice1, radChoice2, radChoice3, radChoice4;
     private ToggleGroup grpChoices;
     private Button btnPrev, btnNext, btnSubmit;
     private Pane mainPane;
@@ -50,8 +50,8 @@ public class MyTest extends Application {
         imgQues = new ImageView();
         imgQues.setLayoutX(25);
         imgQues.setLayoutY(75);
-        imgQues.setFitHeight(150);
-        imgQues.setFitWidth(150);
+        imgQues.setFitHeight(150); //150
+        imgQues.setFitWidth(300); //150
 
         labA = new Label("A");
         labA.setLayoutX(25);
@@ -62,25 +62,39 @@ public class MyTest extends Application {
         labB.setLayoutX(25);
         radChoice2 = new RadioButton("");
         radChoice2.setLayoutX(50);
+
         labC = new Label("C");
         labC.setLayoutX(25);
         radChoice3 = new RadioButton("");
         radChoice3.setLayoutX(50);
+
+        labD = new Label("D");
+        labD.setLayoutX(25);
+        radChoice4 = new RadioButton("");
+        radChoice4.setLayoutX(50);
+
         grpChoices = new ToggleGroup();
 
         radChoice1.setToggleGroup(grpChoices);
         radChoice2.setToggleGroup(grpChoices);
         radChoice3.setToggleGroup(grpChoices);
+        radChoice4.setToggleGroup(grpChoices);
         paneC = new Pane();
         paneC.setLayoutX(25);
         paneC.setLayoutY(75);
         paneC.getChildren().add(imgQues);
+
         paneC.getChildren().add(labA);
         paneC.getChildren().add(radChoice1);
+
         paneC.getChildren().add(labB);
         paneC.getChildren().add(radChoice2);
+
         paneC.getChildren().add(labC);
         paneC.getChildren().add(radChoice3);
+
+        paneC.getChildren().add(labD);
+        paneC.getChildren().add(radChoice4);
 
         btnPrev = new Button("Prev");
         btnPrev.setLayoutX(25);
@@ -101,17 +115,27 @@ public class MyTest extends Application {
             quesList.get(activeQ-1).setSelected(0, true);
             quesList.get(activeQ-1).setSelected(1, false);
             quesList.get(activeQ-1).setSelected(2, false);
+            quesList.get(activeQ-1).setSelected(3, false);
         });
         radChoice2.setOnAction(e -> {
             quesList.get(activeQ-1).setSelected(0, false);
             quesList.get(activeQ-1).setSelected(1, true);
             quesList.get(activeQ-1).setSelected(2, false);
+            quesList.get(activeQ-1).setSelected(3, false);
         });
         radChoice3.setOnAction(e -> {
             quesList.get(activeQ-1).setSelected(0, false);
             quesList.get(activeQ-1).setSelected(1, false);
             quesList.get(activeQ-1).setSelected(2, true);
+            quesList.get(activeQ-1).setSelected(3, false);
         });
+        radChoice4.setOnAction(e -> {
+            quesList.get(activeQ-1).setSelected(0, false);
+            quesList.get(activeQ-1).setSelected(1, false);
+            quesList.get(activeQ-1).setSelected(2, false);
+            quesList.get(activeQ-1).setSelected(3, true);
+        });
+
         if (totQues == 1)
             btnNext.setDisable(true);
         btnNext.setOnAction(e -> {
@@ -143,7 +167,7 @@ public class MyTest extends Application {
         mainPane.getChildren().add(btnPrev);
         mainPane.getChildren().add(btnSubmit);
 
-        mainScene = new Scene(mainPane, 400, 600);
+        mainScene = new Scene(mainPane, 700, 800); //400 600
         mainStage.setScene(mainScene);
         reloadQues();
         winGreeting = new MyGreeting();
@@ -160,7 +184,10 @@ public class MyTest extends Application {
         radChoice1.setText(quesList.get(activeQ-1).getChoice(0));
         radChoice2.setText(quesList.get(activeQ-1).getChoice(1));
         radChoice3.setText(quesList.get(activeQ-1).getChoice(2));
+        radChoice4.setText(quesList.get(activeQ-1).getChoice(3));
         imgQues.setImage(null);
+
+        //type A
         if (quesList.get(activeQ-1).getType() == 1) {
             labA.setLayoutY(75);
             radChoice1.setLayoutY(75);
@@ -168,7 +195,10 @@ public class MyTest extends Application {
             radChoice2.setLayoutY(125);
             labC.setLayoutY(175);
             radChoice3.setLayoutY(175);
+            labD.setLayoutY(225);
+            radChoice4.setLayoutY(225);
         }
+        //type B
         if (quesList.get(activeQ-1).getType() == 2) {
             File pFile = new File("src/data/" + quesList.get(activeQ-1).getQuesPic());
             Image img = new Image(pFile.toURI().toString());
@@ -179,10 +209,14 @@ public class MyTest extends Application {
             radChoice2.setLayoutY(325);
             labC.setLayoutY(375);
             radChoice3.setLayoutY(375);
+            labD.setLayoutY(425);
+            radChoice4.setLayoutY(425);
         }
+
         radChoice1.setSelected(quesList.get(activeQ-1).getSelected(0));
         radChoice2.setSelected(quesList.get(activeQ-1).getSelected(1));
         radChoice3.setSelected(quesList.get(activeQ-1).getSelected(2));
+        radChoice4.setSelected(quesList.get(activeQ-1).getSelected(3));
     }
 
     public void readFromFile() {
@@ -190,7 +224,7 @@ public class MyTest extends Application {
         int type;
         char answer;
         String theQues;
-        String choices[] = new String[3];
+        String choices[] = new String[4];
         String quesPic;
         Question ques;
         try {
@@ -198,6 +232,7 @@ public class MyTest extends Application {
             String aLine = sfile.nextLine();
             Scanner sline = new Scanner(aLine);
             totQues = Integer.parseInt(sline.next());
+
             for (int k = 1; k <= totQues; k++) {
                 aLine = sfile.nextLine();
                 sline = new Scanner(aLine);
@@ -211,6 +246,8 @@ public class MyTest extends Application {
                 choices[0] = sline.next();
                 choices[1] = sline.next();
                 choices[2] = sline.next();
+                choices[3] = sline.next();
+
                 sline.close();
                 ques = new Question(type, answer, theQues, choices, quesPic);
                 quesList.add(ques);
@@ -226,3 +263,4 @@ public class MyTest extends Application {
         Application.launch(args);
     }
 }
+
