@@ -201,7 +201,7 @@ public class MyTest extends Application {
         }
         //type B
         if (quesList.get(activeQ-1).getType() == 2) {
-            File pFile = new File("src/data/" + quesList.get(activeQ-1).getQuesPic());
+            File pFile = new File("src/data/img/" + quesList.get(activeQ-1).getQuesPic());
             Image img = new Image(pFile.toURI().toString());
             imgQues.setImage(img);
             labA.setLayoutY(375);
