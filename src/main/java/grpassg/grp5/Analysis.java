@@ -8,12 +8,12 @@ import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-public class MyFarewell extends Stage {
+public class Analysis extends Stage {
 
     private Label labName, labName2;
     private MediaPlayer mdPlayer;
 
-    public MyFarewell() {
+    public Analysis() {
         this.setTitle("Sayonara");
         labName = new Label();
         labName2 = new Label();
@@ -32,7 +32,7 @@ public class MyFarewell extends Stage {
     }
 
     public void showStage() {
-        labName2.setText("RIP " + MyParam.getName2() + " ! ");
+        labName2.setText("RIP " + Contestant.getName() + " ! ");
         mdPlayer.play();
         this.show();
     }

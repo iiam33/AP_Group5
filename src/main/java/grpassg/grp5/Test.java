@@ -9,9 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-public class MyTest extends Application {
+public class Test extends Application {
 
-    private File myf = new File("src/data", "questions.txt");
+    private File myf = new File("src/data/question", "questions.txt");
     private int totQues = 0;
     private int activeQ = 1; //first question
     private Label labQuesNo, labQues, labName;
@@ -23,8 +23,8 @@ public class MyTest extends Application {
     private Pane mainPane;
     private Pane paneC;
     private Scene mainScene;
-    private MyGreeting winGreeting;
-    private MyFarewell winFarewell;
+    private ContestantEntry winGreeting;
+    private Analysis winFarewell;
     private LinkedList<Question> quesList = new LinkedList<Question>();
 
     public void start(Stage mainStage) {
@@ -171,12 +171,12 @@ public class MyTest extends Application {
         mainScene = new Scene(mainPane, 650, 800); //400 600 then latest is 600, 800
         mainStage.setScene(mainScene);
         reloadQues();
-        winGreeting = new MyGreeting();
+        winGreeting = new ContestantEntry();
         winGreeting.setOnHiding(e -> {
-            labName.setText(winGreeting.getName());
+            labName.setText(Contestant.getName());
             mainStage.show();
         });
-        winFarewell = new MyFarewell();
+        winFarewell = new Analysis();
     }
 
     public void reloadQues() {
@@ -201,7 +201,7 @@ public class MyTest extends Application {
         }
         //type B
         if (quesList.get(activeQ-1).getType() == 2) {
-            File pFile = new File("src/data/img/" + quesList.get(activeQ-1).getQuesPic());
+            File pFile = new File("src/data/question/img/" + quesList.get(activeQ-1).getQuesPic());
             Image img = new Image(pFile.toURI().toString());
             imgQues.setImage(img);
             labA.setLayoutY(375);
