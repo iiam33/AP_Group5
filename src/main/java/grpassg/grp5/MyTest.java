@@ -279,7 +279,8 @@ public class MyTest extends Application {
                 sline.close();
                 ques = new Question(type, answer, theQues, choices, quesPic);
                 quesList.add(ques);
-            } */
+             */
+            }
             sfile.close();
         }
         catch (FileNotFoundException e) {
