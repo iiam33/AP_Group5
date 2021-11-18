@@ -9,8 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-public class Test extends Application {
 
+public class Test {
     private File myf = new File("src/data/question", "questions.txt");
     private int totQues = 0;
     private int activeQ = 1; //first question
@@ -20,15 +20,15 @@ public class Test extends Application {
     private RadioButton radChoice1, radChoice2, radChoice3, radChoice4;
     private ToggleGroup grpChoices;
     private Button btnPrev, btnNext, btnSubmit;
-    private Pane mainPane;
+    private Pane testPane;
     private Pane paneC;
-    private Scene mainScene;
-    private ContestantEntry winGreeting;
+    private Scene testScene;
+    private ContestantEntry constEntry;
     private Analysis winFarewell;
     private LinkedList<Question> quesList = new LinkedList<Question>();
 
-    public void start(Stage mainStage) {
-        mainStage.setTitle("Miss Universe Knowledge Test");
+    public void start(Stage testStage) {
+        testStage.setTitle("Miss Universe Knowledge Test");
         Label labNameDesc = new Label("Name");
         labNameDesc.setLayoutX(25);
         labNameDesc.setLayoutY(25);
@@ -155,26 +155,27 @@ public class Test extends Application {
         });
         btnSubmit.setOnAction(e -> {
             winFarewell.setName(labName.getText());
-            mainStage.hide();
+            testStage.hide();
             winFarewell.showStage();
         });
-        mainPane = new Pane();
-        mainPane.getChildren().add(labNameDesc);
-        mainPane.getChildren().add(labName);
-        mainPane.getChildren().add(labQuesNo);
-        mainPane.getChildren().add(labQues);
-        mainPane.getChildren().add(paneC);
-        mainPane.getChildren().add(btnNext);
-        mainPane.getChildren().add(btnPrev);
-        mainPane.getChildren().add(btnSubmit);
+        testPane = new Pane();
+        testPane.getChildren().add(labNameDesc);
+        testPane.getChildren().add(labName);
+        testPane.getChildren().add(labQuesNo);
+        testPane.getChildren().add(labQues);
+        testPane.getChildren().add(paneC);
+        testPane.getChildren().add(btnNext);
+        testPane.getChildren().add(btnPrev);
+        testPane.getChildren().add(btnSubmit);
 
-        mainScene = new Scene(mainPane, 650, 800); //400 600 then latest is 600, 800
-        mainStage.setScene(mainScene);
+        testScene = new Scene(testPane, 650, 800);
         reloadQues();
-        winGreeting = new ContestantEntry();
-        winGreeting.setOnHiding(e -> {
+        testStage.hide();
+        constEntry = new ContestantEntry();
+        constEntry.setOnHiding(e -> {
             labName.setText(Contestant.getName());
-            mainStage.show();
+            testStage.setScene(testScene);
+            testStage.show();
         });
         winFarewell = new Analysis();
     }
@@ -259,8 +260,8 @@ public class Test extends Application {
         }
     }
 
-    public static void main(String args[]) {
-        Application.launch(args);
-    }
+//    public static void main(String args[]) {
+//        Application.launch(args);
+//    }
 }
 

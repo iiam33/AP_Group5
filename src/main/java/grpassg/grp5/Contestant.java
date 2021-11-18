@@ -1,6 +1,6 @@
 package grpassg.grp5;
 
-public class Contestant {
+public class Contestant{
 
     private static String name;
     private static String country;
