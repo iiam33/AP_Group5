@@ -14,6 +14,15 @@
 1:A:What is the capital of Kyrgyzstan?:Hanoi:Lilonwe:Bishkek:Pretoria
 2:A:Who is this?:kyrgyz.jpg:Akylbek Japarov:Muhammetkaliy Abulgaziyev:Donald Trump:Mamat
 2:B:What is the name of this dish? Please select the correct answer.:kyrgyzdish.jpg:Curry Puff:Borsok:Fried Wantan:Baklava
-
+3:D:Which flag represents Latvia? :latviaflaga.jpg:latviaflagb.jpg:latviaflagc.jpg:latviaflagd.jpg
+3:D:Who was the president of Kiribati in 2005?:kiribatitrump.jpg:kiribatiwashington.jpg:kiribatiadams.jpg:kiribatitong.jpg
+3:C:Which is the official language of Kiribati?:kiribatichinese.jpg:kiribatikorean.jpg:kiribatienglish.jpg:kiribatitagalog.jpg
+3:A:Which is the current prime minister of Kuwait?:kuwait prime minister.png:past prime minister.jpg:Past PM 2.jpg:Past PM 3.jpg
+3:C:Which is the most recognized building in Kuwait?:arraya tower.jpg:hamra tower aka tallest.jpg:kuwait towers.jpg:liberation tower.jpg
+3:C:Which of these have not been appointed as the prime minister of Laos?:PMA.jpg:PMB.jpg:PMC.jpg:PMD.jpg
+3:A:Which is the currency note for Laos?:LCA.jpg:LCB.jpg:LCC.jpg:LCD.jpg
+3:D: What’s the national flag of Kyrgyzstan?:KFA.jpg:KFB.jpg:KFC.jpg:KFD.jpg
+2:A:Who is the president in Latvia?:latviapresident.jpg:Egils Levits:Donald Trump:Mevin Donia:Scott Vina
+2:A:Where is this building located?:kiribatibuilding.png:Tarawa Islands:Bangkok:Tokyo:Singapore
 
 

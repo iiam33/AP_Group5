@@ -16,6 +16,7 @@ public class MyTest extends Application {
     private int activeQ = 1; //first question
     private Label labQuesNo, labQues, labName;
     private ImageView imgQues;
+    private ImageView flag1, flag2, flag3,flag4;
     private Label labA, labB, labC, labD;
     private RadioButton radChoice1, radChoice2, radChoice3, radChoice4;
     private ToggleGroup grpChoices;
@@ -46,6 +47,12 @@ public class MyTest extends Application {
         labQues.setLayoutX(25);
         labQues.setLayoutY(100);
         labQues.setStyle("-fx-font-size: 10pt;-fx-font-weight:bold;");
+
+        imgQues = new ImageView();
+        imgQues.setLayoutX(25);
+        imgQues.setLayoutY(75);
+        imgQues.setFitHeight(280);
+        imgQues.setFitWidth(275);
 
         imgQues = new ImageView();
         imgQues.setLayoutX(25);
@@ -213,6 +220,22 @@ public class MyTest extends Application {
             labD.setLayoutY(525);
             radChoice4.setLayoutY(525); //where u change the x and y placement
         }
+        //type C
+        /*
+         if (quesList.get(activeQ-1).getType()== 3) {
+             File qFile = new File("src/data/img/" + quesList.get(activeQ-1).getQuesPic());
+             Image flag1 = new Image(qFile.toURI().toString());
+             labA.setLayoutY(200);
+             radChoice1.setLayoutX(200);
+             labB.setLayoutY(325);
+             radChoice2.setLayoutY(325);
+             labC.setLayoutY(435);
+             radChoice3.setLayoutY(435);
+             labD.setLayoutY(525);
+             radChoice4.setLayoutY(525);
+
+         */
+
 
         radChoice1.setSelected(quesList.get(activeQ-1).getSelected(0));
         radChoice2.setSelected(quesList.get(activeQ-1).getSelected(1));
@@ -248,10 +271,15 @@ public class MyTest extends Application {
                 choices[1] = sline.next();
                 choices[2] = sline.next();
                 choices[3] = sline.next();
+
+               /* if (type ==3)
+                    aLine = sfile.nextLine();
+                choices[0]
+
                 sline.close();
                 ques = new Question(type, answer, theQues, choices, quesPic);
                 quesList.add(ques);
-            }
+            } */
             sfile.close();
         }
         catch (FileNotFoundException e) {
