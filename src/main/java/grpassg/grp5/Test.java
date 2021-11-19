@@ -15,7 +15,7 @@ public class Test {
     private int totQues = 0;
     private int activeQ = 1; //first question
     private Label labQuesNo, labQues, labName;
-    private ImageView imgQues;
+    private ImageView imgQues, imglabA, imglabB, imglabC, imglabD;
     private Label labA, labB, labC, labD;
     private RadioButton radChoice1, radChoice2, radChoice3, radChoice4;
     private ToggleGroup grpChoices;
@@ -53,6 +53,30 @@ public class Test {
         imgQues.setFitHeight(280);
         imgQues.setFitWidth(275);
 
+        imglabA = new ImageView();
+        imglabA.setLayoutX(75);
+        imglabA.setLayoutY(25);
+        imglabA.setFitHeight(100);
+        imglabA.setFitWidth(100);
+
+        imglabB = new ImageView();
+        imglabB.setLayoutX(75);
+        imglabB.setLayoutY(100);
+        imglabB.setFitHeight(100);
+        imglabB.setFitWidth(100);
+
+        imglabC = new ImageView();
+        imglabC.setLayoutX(75);
+        imglabC.setLayoutY(175);
+        imglabC.setFitHeight(100);
+        imglabC.setFitWidth(100);
+
+        imglabD = new ImageView();
+        imglabD.setLayoutX(75);
+        imglabD.setLayoutY(175);
+        imglabD.setFitHeight(100);
+        imglabD.setFitWidth(100);
+
         labA = new Label("A");
         labA.setLayoutX(25);
         //labA.setLayoutY(30);
@@ -87,15 +111,16 @@ public class Test {
 
         paneC.getChildren().add(labA);
         paneC.getChildren().add(radChoice1);
-
+        paneC.getChildren().add(imglabA);
         paneC.getChildren().add(labB);
         paneC.getChildren().add(radChoice2);
-
+        paneC.getChildren().add(imglabB);
         paneC.getChildren().add(labC);
         paneC.getChildren().add(radChoice3);
-
+        paneC.getChildren().add(imglabC);
         paneC.getChildren().add(labD);
         paneC.getChildren().add(radChoice4);
+        paneC.getChildren().add(imglabD);
 
         btnPrev = new Button("Previous");
         btnPrev.setLayoutX(25);
@@ -188,6 +213,11 @@ public class Test {
         radChoice3.setText(quesList.get(activeQ-1).getChoice(2));
         radChoice4.setText(quesList.get(activeQ-1).getChoice(3));
         imgQues.setImage(null);
+        imglabA.setImage(null);
+        imglabB.setImage(null);
+        imglabC.setImage(null);
+        imglabD.setImage(null);
+
 
         //type A
         if (quesList.get(activeQ-1).getType() == 1) {
@@ -213,6 +243,46 @@ public class Test {
             radChoice3.setLayoutY(475);
             labD.setLayoutY(525);
             radChoice4.setLayoutY(525); //where u change the x and y placement
+        }
+        //type C
+        if (quesList.get(activeQ - 1).getType() == 3) {
+
+            radChoice1.setText("");
+            radChoice2.setText("");
+            radChoice3.setText("");
+            radChoice4.setText("");
+
+            File pFile = new File("src/data/question/img/" + quesList.get(activeQ - 1).getChoice(0));
+            Image img = new Image(pFile.toURI().toString());
+
+            File pFile2 = new File("src/data/question/img/" + quesList.get(activeQ - 1).getChoice(1));
+            Image img2 = new Image(pFile2.toURI().toString());
+
+            File pFile3 = new File("src/data/question/img/" + quesList.get(activeQ - 1).getChoice(2));
+            Image img3 = new Image(pFile3.toURI().toString());
+
+            File pFile4 = new File("src/data/question/img/" + quesList.get(activeQ - 1).getChoice(3));
+            Image img4 = new Image(pFile4.toURI().toString());
+
+            imglabA.setImage(img);
+            imglabA.setLayoutY(100);
+            labA.setLayoutY(125);
+            radChoice1.setLayoutY(125);
+
+            imglabB.setImage(img2);
+            imglabB.setLayoutY(225);
+            labB.setLayoutY(250);
+            radChoice2.setLayoutY(250);
+
+            imglabC.setImage(img3);
+            imglabC.setLayoutY(350);
+            labC.setLayoutY(375);
+            radChoice3.setLayoutY(375);
+
+            imglabD.setImage(img4);
+            imglabD.setLayoutY(475);
+            labD.setLayoutY(500);
+            radChoice4.setLayoutY(500);
         }
 
         radChoice1.setSelected(quesList.get(activeQ-1).getSelected(0));
@@ -243,15 +313,26 @@ public class Test {
                 answer = sline.next().charAt(0);
                 theQues = sline.next();
                 quesPic = "";
-                if (type == 2)
+
+                if (type==1 | type == 3) {
+                    choices[0] = sline.next();
+                    choices[1] = sline.next();
+                    choices[2] = sline.next();
+                    choices[3] = sline.next();
+                    sline.close();
+                    ques = new Question(type, answer, theQues, choices, quesPic);
+                    quesList.add(ques);
+                }
+                if (type == 2) {
                     quesPic = sline.next();
-                choices[0] = sline.next();
-                choices[1] = sline.next();
-                choices[2] = sline.next();
-                choices[3] = sline.next();
-                sline.close();
-                ques = new Question(type, answer, theQues, choices, quesPic);
-                quesList.add(ques);
+                    choices[0] = sline.next();
+                    choices[1] = sline.next();
+                    choices[2] = sline.next();
+                    choices[3] = sline.next();
+                    sline.close();
+                    ques = new Question(type, answer, theQues, choices, quesPic);
+                    quesList.add(ques);
+                }
             }
             sfile.close();
         }
