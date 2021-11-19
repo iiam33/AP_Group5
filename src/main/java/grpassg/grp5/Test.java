@@ -11,7 +11,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class Test {
-    private File questFile = new File("src/data/question", "questions.txt");
+    private File questFile = new File("src/data/question", "inputdata.txt");
     private int totQues = 0;
     private int activeQ = 1; //first question
     private Label labQuesNo, labQues, labName;
@@ -206,7 +206,7 @@ public class Test {
     }
 
     public void reloadQues() {
-        labQuesNo.setText("Question " + Integer.toString(activeQ));
+        labQuesNo.setText("Question " + Integer.toString(activeQ) + " of " + quesList.size());
         labQues.setText(quesList.get(activeQ-1).getTheQues());
         radChoice1.setText(quesList.get(activeQ-1).getChoice(0));
         radChoice2.setText(quesList.get(activeQ-1).getChoice(1));
@@ -217,7 +217,6 @@ public class Test {
         imglabB.setImage(null);
         imglabC.setImage(null);
         imglabD.setImage(null);
-
 
         //type A
         if (quesList.get(activeQ-1).getType() == 1) {
@@ -246,7 +245,6 @@ public class Test {
         }
         //type C
         if (quesList.get(activeQ - 1).getType() == 3) {
-
             radChoice1.setText("");
             radChoice2.setText("");
             radChoice3.setText("");
