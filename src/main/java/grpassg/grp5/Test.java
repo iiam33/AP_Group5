@@ -3,7 +3,7 @@ package grpassg.grp5;
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
-import javafx.application.Application;
+
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
@@ -11,7 +11,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class Test {
-    private File myf = new File("src/data/question", "questions.txt");
+    private File questFile = new File("src/data/question", "questions.txt");
     private int totQues = 0;
     private int activeQ = 1; //first question
     private Label labQuesNo, labQues, labName;
@@ -23,7 +23,7 @@ public class Test {
     private Pane testPane;
     private Pane paneC;
     private Scene testScene;
-    private ContestantEntry constEntry;
+    private ContestantForm constForm;
     private Analysis winFarewell;
     private LinkedList<Question> quesList = new LinkedList<Question>();
 
@@ -171,9 +171,9 @@ public class Test {
         testScene = new Scene(testPane, 650, 800);
         reloadQues();
         testStage.hide();
-        constEntry = new ContestantEntry();
-        constEntry.setOnHiding(e -> {
-            labName.setText(Contestant.getName());
+        constForm = new ContestantForm();
+        constForm.setOnHiding(e -> {
+            labName.setText(constForm.getName());
             testStage.setScene(testScene);
             testStage.show();
         });
@@ -230,7 +230,7 @@ public class Test {
         String quesPic;
         Question ques;
         try {
-            sfile = new Scanner(myf);
+            sfile = new Scanner(questFile);
             String aLine = sfile.nextLine();
             Scanner sline = new Scanner(aLine);
             totQues = Integer.parseInt(sline.next());
@@ -256,12 +256,8 @@ public class Test {
             sfile.close();
         }
         catch (FileNotFoundException e) {
-            System.out.println("File to read " + myf + " not found!");
+            System.out.println("File to read " + questFile + " not found!");
         }
     }
-
-//    public static void main(String args[]) {
-//        Application.launch(args);
-//    }
 }
 
