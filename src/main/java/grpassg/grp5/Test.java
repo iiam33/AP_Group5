@@ -304,19 +304,6 @@ public class Test {
         for(int i = 0; i < 25; i++) {
             userAns[i] = getUserAnswer();
 
-            if (userAns[i] == 0)
-                userAnswer = "A";
-
-            else if (userAns[i] == 1)
-                 userAnswer = "B";
-
-            else if (userAns[i] == 2)
-                 userAnswer = "C";
-
-            else if (userAns[i] == 3)
-                 userAnswer = "D";
-
-            else userAnswer = "Blank";
         }
     }
 
@@ -374,8 +361,21 @@ public class Test {
         int ans = 0;
         for (int i = 0; i < 25; i++) {
             for (int j = 0 ; j < 4; j++) {
-                if(quesList.get(i).getSelected(j) == true)
-                    ans = j;
+                if (j == 0)
+                    userAnswer = "A";
+
+                else if (j == 1)
+                    userAnswer = "B";
+
+                else if (j == 2)
+                    userAnswer = "C";
+
+                else if (j == 3)
+                    userAnswer = "D";
+
+                else userAnswer = "Blank";
+                    if(quesList.get(i).getSelected(j) == true)
+                        ans = j;
             }
         }
         return ans;
@@ -394,7 +394,7 @@ public class Test {
             for (int i = 0; i < userAns.length; i++){
                 if (i == (userAns.length) - 1)
                     print.print(userAns[i]);
-                else print.print(userAns[i] + ":");
+                else print.print(userAnswer + ":");
             }
             print.close();
         }
