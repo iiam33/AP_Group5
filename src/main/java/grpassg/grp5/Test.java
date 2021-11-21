@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 public class Test {
     private File questFile = new File("src/data/question", "inputdata.txt");
+    private File resultFile = new File("src/data/question", "result.txt");
     private int totQues = 0;
     private int activeQ = 1; //first question
     private Label labQuesNo, labQues, labName;
@@ -26,6 +27,9 @@ public class Test {
     private ContestantForm constForm;
     private Analysis winFarewell;
     private LinkedList<Question> quesList = new LinkedList<Question>();
+    public int userAns[] = new int[25];
+    public String userAnswer;
+    //Results results = new Results();
 
     public void start(Stage testStage) {
         testStage.setTitle("Miss Universe Knowledge Test");
@@ -182,6 +186,7 @@ public class Test {
             winFarewell.setName(labName.getText());
             testStage.hide();
             winFarewell.showStage();
+            submitAns();
         });
         testPane = new Pane();
         testPane.getChildren().add(labNameDesc);
@@ -287,6 +292,32 @@ public class Test {
         radChoice2.setSelected(quesList.get(activeQ-1).getSelected(1));
         radChoice3.setSelected(quesList.get(activeQ-1).getSelected(2));
         radChoice4.setSelected(quesList.get(activeQ-1).getSelected(3));
+
+//        for(int i = 0; i < 25; i++) {
+//            userAns[i] = getUserAnswer(quesList.get(activeQ-1).getSelected(1));
+//            System.out.println("selected"+1+quesList.get(activeQ-1).getSelected(0));
+//            System.out.println("selected"+2+quesList.get(activeQ-1).getSelected(1));
+//            System.out.println("selected"+3+quesList.get(activeQ-1).getSelected(2));
+//            System.out.println("selected"+4+quesList.get(activeQ-1).getSelected(3));
+//        }
+
+        for(int i = 0; i < 25; i++) {
+            userAns[i] = getUserAnswer();
+
+            if (userAns[i] == 0)
+                userAnswer = "A";
+
+            else if (userAns[i] == 1)
+                 userAnswer = "B";
+
+            else if (userAns[i] == 2)
+                 userAnswer = "C";
+
+            else if (userAns[i] == 3)
+                 userAnswer = "D";
+
+            else userAnswer = "Blank";
+        }
     }
 
     public void readFromFile() {
@@ -338,5 +369,40 @@ public class Test {
             System.out.println("File to read " + questFile + " not found!");
         }
     }
+
+    public int getUserAnswer() {
+        int ans = 0;
+        for (int i = 0; i < 25; i++) {
+            for (int j = 0 ; j < 4; j++) {
+                if(quesList.get(i).getSelected(j) == true)
+                    ans = j;
+            }
+        }
+        return ans;
+    }
+
+    public void submitAns(){
+        try{
+
+            FileWriter fw = new FileWriter("src/data/question/result.txt");
+            PrintWriter print = new PrintWriter(fw);
+            print.println();
+            print.print(labName.getText() + ":");
+
+
+
+            for (int i = 0; i < userAns.length; i++){
+                if (i == (userAns.length) - 1)
+                    print.print(userAns[i]);
+                else print.print(userAns[i] + ":");
+            }
+            print.close();
+        }
+        catch(IOException e){
+    }
+
+        }
+
+
 }
 

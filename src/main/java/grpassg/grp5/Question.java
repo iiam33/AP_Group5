@@ -1,6 +1,6 @@
 package grpassg.grp5;
 
-public class Question {
+public class Question<userAnswer> {
 
     private int type;
     private char answer;
@@ -8,6 +8,7 @@ public class Question {
     private String choices[] = new String[4];
     private String quesPic;
     private boolean selected[] = new boolean[4];
+
     public Question(int t, char a, String tq, String c[], String qp) {
         type = t;
         answer = a;
@@ -18,6 +19,11 @@ public class Question {
         for (int k = 1; k < 4; k++)
             selected[k] = false;
     }
+
+    public Question() {
+
+    }
+
     public int getType() {
         return type;
     }
@@ -29,6 +35,7 @@ public class Question {
     public String getQuesPic() {
         return quesPic;
     }
+
     public String getChoice(int no) {
         return choices[no];
     }
@@ -40,4 +47,5 @@ public class Question {
     public void setSelected(int no, boolean status) {
         selected[no] = status;
     }
+
 }
