@@ -27,8 +27,8 @@ public class Test {
     private ContestantForm constForm;
     private Analysis winFarewell;
     private LinkedList<Question> quesList = new LinkedList<Question>();
-    public int userAns[] = new int[25];
-    public String userAnswer;
+    private int userAnsInt[] = new int[25];
+    private String userAnsString[] = new String[25];
     //Results results = new Results();
 
     public void start(Stage testStage) {
@@ -146,24 +146,28 @@ public class Test {
             quesList.get(activeQ-1).setSelected(1, false);
             quesList.get(activeQ-1).setSelected(2, false);
             quesList.get(activeQ-1).setSelected(3, false);
+            userAnsInt[activeQ-1] = 1;
         });
         radChoice2.setOnAction(e -> {
             quesList.get(activeQ-1).setSelected(0, false);
             quesList.get(activeQ-1).setSelected(1, true);
             quesList.get(activeQ-1).setSelected(2, false);
             quesList.get(activeQ-1).setSelected(3, false);
+            userAnsInt[activeQ-1] = 2;
         });
         radChoice3.setOnAction(e -> {
             quesList.get(activeQ-1).setSelected(0, false);
             quesList.get(activeQ-1).setSelected(1, false);
             quesList.get(activeQ-1).setSelected(2, true);
             quesList.get(activeQ-1).setSelected(3, false);
+            userAnsInt[activeQ-1] = 3;
         });
         radChoice4.setOnAction(e -> {
             quesList.get(activeQ-1).setSelected(0, false);
             quesList.get(activeQ-1).setSelected(1, false);
             quesList.get(activeQ-1).setSelected(2, false);
             quesList.get(activeQ-1).setSelected(3, true);
+            userAnsInt[activeQ-1] = 4;
         });
 
         if (totQues == 1)
@@ -292,32 +296,6 @@ public class Test {
         radChoice2.setSelected(quesList.get(activeQ-1).getSelected(1));
         radChoice3.setSelected(quesList.get(activeQ-1).getSelected(2));
         radChoice4.setSelected(quesList.get(activeQ-1).getSelected(3));
-
-//        for(int i = 0; i < 25; i++) {
-//            userAns[i] = getUserAnswer(quesList.get(activeQ-1).getSelected(1));
-//            System.out.println("selected"+1+quesList.get(activeQ-1).getSelected(0));
-//            System.out.println("selected"+2+quesList.get(activeQ-1).getSelected(1));
-//            System.out.println("selected"+3+quesList.get(activeQ-1).getSelected(2));
-//            System.out.println("selected"+4+quesList.get(activeQ-1).getSelected(3));
-//        }
-
-        for(int i = 0; i < 25; i++) {
-            userAns[i] = getUserAnswer();
-
-            if (userAns[i] == 0)
-                userAnswer = "A";
-
-            else if (userAns[i] == 1)
-                 userAnswer = "B";
-
-            else if (userAns[i] == 2)
-                 userAnswer = "C";
-
-            else if (userAns[i] == 3)
-                 userAnswer = "D";
-
-            else userAnswer = "Blank";
-        }
     }
 
     public void readFromFile() {
@@ -370,38 +348,42 @@ public class Test {
         }
     }
 
-    public int getUserAnswer() {
-        int ans = 0;
-        for (int i = 0; i < 25; i++) {
-            for (int j = 0 ; j < 4; j++) {
-                if(quesList.get(i).getSelected(j) == true)
-                    ans = j;
-            }
+    public void convertUserAnsToString() {
+        for(int i = 0; i < 25; i++) {
+            if(userAnsInt[i] == 1)
+                userAnsString[i] = "A";
+            else if(userAnsInt[i] == 2)
+                userAnsString[i] = "B";
+            else if(userAnsInt[i] == 3)
+                userAnsString[i] = "C";
+            else if(userAnsInt[i] == 4)
+                userAnsString[i] = "D";
+            else
+                userAnsString[i] = "null";
         }
-        return ans;
     }
 
     public void submitAns(){
+        reloadQues();
+        convertUserAnsToString();
         try{
+            PrintWriter fw = new PrintWriter(new FileWriter("src/data/result/result.txt", true));
+            PrintWriter pw = new PrintWriter(fw);
+            pw.print(labName.getText() + ":");
+            pw.print(constForm.getCountry() + ":");
 
-            FileWriter fw = new FileWriter("src/data/question/result.txt");
-            PrintWriter print = new PrintWriter(fw);
-            print.println();
-            print.print(labName.getText() + ":");
-
-
-
-            for (int i = 0; i < userAns.length; i++){
-                if (i == (userAns.length) - 1)
-                    print.print(userAns[i]);
-                else print.print(userAns[i] + ":");
+            for (int i = 0; i < userAnsString.length; i++){
+                if (i == (userAnsString.length) - 1)
+                    pw.print(userAnsString[i]);
+                else pw.print(userAnsString[i] + ":");
             }
-            print.close();
+            pw.println();
+            pw.close();
         }
         catch(IOException e){
-    }
-
+            System.out.println("File to read " + resultFile + " not found!");
         }
+    }
 
 
 }
