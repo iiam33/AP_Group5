@@ -3,12 +3,18 @@ package grpassg.grp5;
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Test {
     private File questFile = new File("src/data/question", "inputdata.txt");
@@ -23,6 +29,9 @@ public class Test {
     private Pane testPane;
     private Pane paneC;
     private Scene testScene;
+    private Label labTimer = new Label();
+    private Timer timer;
+    private Double interval = 10.0;
     private ContestantForm constForm;
     private Analysis winFarewell;
     private LinkedList<Question> quesList = new LinkedList<Question>();
@@ -46,6 +55,13 @@ public class Test {
         labQues.setLayoutX(25);
         labQues.setLayoutY(100);
         labQues.setStyle("-fx-font-size: 10pt;-fx-font-weight:bold;");
+
+        labTimer = new Label();
+        labTimer.setLayoutX(25);
+        labTimer.setLayoutY(678);
+        labTimer.setText("Time left: " + interval);
+        labTimer.setTextFill(Color.RED);
+        labTimer.setStyle("-fx-font-size: 10pt;-fx-font-weight:bold;");
 
         imgQues = new ImageView();
         imgQues.setLayoutX(25);
@@ -79,7 +95,6 @@ public class Test {
 
         labA = new Label("A");
         labA.setLayoutX(25);
-        //labA.setLayoutY(30);
         radChoice1 = new RadioButton("");
         radChoice1.setLayoutX(50);
 
@@ -124,16 +139,16 @@ public class Test {
 
         btnPrev = new Button("Previous");
         btnPrev.setLayoutX(25);
-        btnPrev.setLayoutY(675);
+        btnPrev.setLayoutY(725);
         btnPrev.setStyle("-fx-pref-width: 75px;");
         btnPrev.setDisable(true);
         btnNext = new Button("Next");
         btnNext.setLayoutX(125);
-        btnNext.setLayoutY(675);
+        btnNext.setLayoutY(725);
         btnNext.setStyle("-fx-pref-width: 75px;");
         btnSubmit = new Button("End");
         btnSubmit.setLayoutX(300);
-        btnSubmit.setLayoutY(675);
+        btnSubmit.setLayoutY(725);
         btnSubmit.setStyle("-fx-pref-width: 75px;");
 
         readFromFile();
@@ -192,8 +207,9 @@ public class Test {
         testPane.getChildren().add(btnNext);
         testPane.getChildren().add(btnPrev);
         testPane.getChildren().add(btnSubmit);
+        testPane.getChildren().add(labTimer);
 
-        testScene = new Scene(testPane, 650, 800);
+        testScene = new Scene(testPane, 650, 775);
         reloadQues();
         testStage.hide();
         constForm = new ContestantForm();
@@ -337,6 +353,22 @@ public class Test {
         catch (FileNotFoundException e) {
             System.out.println("File to read " + questFile + " not found!");
         }
+    }
+
+    public void startCountdownTimer() {
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                if(interval > 0)
+                {
+                    Platform.runLater(() -> labTimer.setText("Time left: " + interval));
+                    System.out.println(interval);
+                    interval--;
+                }
+                else
+                    timer.cancel();
+            }
+        }, 1000,1000);
     }
 }
 

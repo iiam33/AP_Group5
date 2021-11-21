@@ -1,13 +1,13 @@
 package grpassg.grp5;
 
 public class Question {
-
     private int type;
     private char answer;
     private String theQues;
     private String choices[] = new String[4];
     private String quesPic;
     private boolean selected[] = new boolean[4];
+
     public Question(int t, char a, String tq, String c[], String qp) {
         type = t;
         answer = a;

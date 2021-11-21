@@ -19,6 +19,7 @@ public class ContestantForm extends Stage {
     private Label labelMsg;
     private ArrayList<String> contCountryArrayList = new ArrayList<String>();
     private ImageView contCountryFlagImg = new ImageView();
+    private Test test = new Test();
     private File contestantFile = new File("src/data/contestant", "contestant.txt");
 
     public ContestantForm() {
@@ -56,8 +57,8 @@ public class ContestantForm extends Stage {
         btnDone.setLayoutY(230);
         btnDone.setOnAction(e -> {
             if(checkForm()) {
-                Contestant.setName(txtName.getText());
                 this.hide();
+                test.startCountdownTimer();
             }
             else {
                 System.out.println("All field is mandatory.");
