@@ -117,5 +117,7 @@ public class ContestantForm extends Stage {
     public String getName() {
         return txtName.getText();
     }
+
+    public String getCountry() { return comboBoxCountry.getValue(); }
 }
 

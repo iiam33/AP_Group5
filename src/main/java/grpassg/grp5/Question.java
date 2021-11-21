@@ -28,6 +28,8 @@ public class Question<userAnswer> {
         return type;
     }
 
+    public char getAns() {return answer; }
+
     public String getTheQues() {
         return theQues;
     }
