@@ -18,6 +18,7 @@ import javafx.util.Duration;
 
 public class Test {
     private File questFile = new File("src/data/question", "inputdata.txt");
+    private File resultFile = new File("src/data/question", "result.txt");
     private int totQues = 0;
     private int activeQ = 1; //first question
     private Label labQuesNo, labQues, labName;
@@ -35,6 +36,9 @@ public class Test {
     private ContestantForm constForm;
     private Analysis winFarewell;
     private LinkedList<Question> quesList = new LinkedList<Question>();
+    private int userAnsInt[] = new int[25];
+    private String userAnsString[] = new String[25];
+    //Results results = new Results();
 
     public void start(Stage testStage) {
         testStage.setTitle("Miss Universe Knowledge Test");
@@ -157,24 +161,28 @@ public class Test {
             quesList.get(activeQ-1).setSelected(1, false);
             quesList.get(activeQ-1).setSelected(2, false);
             quesList.get(activeQ-1).setSelected(3, false);
+            userAnsInt[activeQ-1] = 1;
         });
         radChoice2.setOnAction(e -> {
             quesList.get(activeQ-1).setSelected(0, false);
             quesList.get(activeQ-1).setSelected(1, true);
             quesList.get(activeQ-1).setSelected(2, false);
             quesList.get(activeQ-1).setSelected(3, false);
+            userAnsInt[activeQ-1] = 2;
         });
         radChoice3.setOnAction(e -> {
             quesList.get(activeQ-1).setSelected(0, false);
             quesList.get(activeQ-1).setSelected(1, false);
             quesList.get(activeQ-1).setSelected(2, true);
             quesList.get(activeQ-1).setSelected(3, false);
+            userAnsInt[activeQ-1] = 3;
         });
         radChoice4.setOnAction(e -> {
             quesList.get(activeQ-1).setSelected(0, false);
             quesList.get(activeQ-1).setSelected(1, false);
             quesList.get(activeQ-1).setSelected(2, false);
             quesList.get(activeQ-1).setSelected(3, true);
+            userAnsInt[activeQ-1] = 4;
         });
 
         if (totQues == 1)
@@ -197,6 +205,7 @@ public class Test {
             winFarewell.setName(labName.getText());
             testStage.hide();
             winFarewell.showStage();
+            submitAns();
         });
         testPane = new Pane();
         testPane.getChildren().add(labNameDesc);
@@ -369,6 +378,43 @@ public class Test {
                     timer.cancel();
             }
         }, 1000,1000);
+    }
+
+    public void convertUserAnsToString() {
+        for(int i = 0; i < 25; i++) {
+            if(userAnsInt[i] == 1)
+                userAnsString[i] = "A";
+            else if(userAnsInt[i] == 2)
+                userAnsString[i] = "B";
+            else if(userAnsInt[i] == 3)
+                userAnsString[i] = "C";
+            else if(userAnsInt[i] == 4)
+                userAnsString[i] = "D";
+            else
+                userAnsString[i] = "null";
+        }
+    }
+
+    public void submitAns(){
+        reloadQues();
+        convertUserAnsToString();
+        try{
+            PrintWriter fw = new PrintWriter(new FileWriter("src/data/result/result.txt", true));
+            PrintWriter pw = new PrintWriter(fw);
+            pw.print(labName.getText() + ":");
+            pw.print(constForm.getCountry() + ":");
+
+            for (int i = 0; i < userAnsString.length; i++){
+                if (i == (userAnsString.length) - 1)
+                    pw.print(userAnsString[i]);
+                else pw.print(userAnsString[i] + ":");
+            }
+            pw.println();
+            pw.close();
+        }
+        catch(IOException e){
+            System.out.println("File to read " + resultFile + " not found!");
+        }
     }
 }
 

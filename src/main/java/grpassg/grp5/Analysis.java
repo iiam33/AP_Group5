@@ -13,6 +13,7 @@ public class Analysis extends Stage {
     private Label labName, labName2;
     private MediaPlayer mdPlayer;
 
+
     public Analysis() {
         this.setTitle("Sayonara");
         labName = new Label();

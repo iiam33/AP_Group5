@@ -1,6 +1,7 @@
 package grpassg.grp5;
 
 public class Question {
+
     private int type;
     private char answer;
     private String theQues;
@@ -18,6 +19,11 @@ public class Question {
         for (int k = 1; k < 4; k++)
             selected[k] = false;
     }
+
+    public Question() {
+
+    }
+
     public int getType() {
         return type;
     }
@@ -29,6 +35,7 @@ public class Question {
     public String getQuesPic() {
         return quesPic;
     }
+
     public String getChoice(int no) {
         return choices[no];
     }
@@ -40,4 +47,5 @@ public class Question {
     public void setSelected(int no, boolean status) {
         selected[no] = status;
     }
+
 }
