@@ -30,13 +30,16 @@ public class Test {
     private Label labTimer = new Label();
     private Thread timerThread;
     private ContestantForm constForm;
-    private Analysis winFarewell;
+    private Result result;
     private LinkedList<Question> quesList = new LinkedList<Question>();
     private int seconds = TIMELIMIT * 60;
     private int userAnsInt[] = new int[25];
     private String userAnsString[] = new String[25];
     private String countryName = "";
-    //Results results = new Results();
+//    private ArrayList<String> correctAns = new ArrayList<String>();
+//    private int userAnsInt[] = new int[25];
+//    private String userAnsString[] = new String[25];
+//    public LinkedList<String> userIn = new LinkedList<> (Arrays.asList(userAnsString));
 
     public void start(Stage testStage) {
         testStage.setTitle("Miss Universe Knowledge Test");
@@ -207,11 +210,10 @@ public class Test {
             reloadQues();
         });
         btnSubmit.setOnAction(e -> {
-            winFarewell.setName(labName.getText());
-            testStage.hide();
-            winFarewell.showStage();
             submitAns();
             stopTimer();
+            testStage.hide();
+            result = new Result();
         });
 
         timerPane = new HBox();
@@ -242,7 +244,6 @@ public class Test {
             testStage.setScene(testScene);
             testStage.show();
         });
-        winFarewell = new Analysis();
     }
 
     public void reloadQues() {
@@ -436,6 +437,7 @@ public class Test {
     public void submitAns(){
         reloadQues();
         convertUserAnsToString();
+        int correct = compareAns();
         try{
             PrintWriter fw = new PrintWriter(new FileWriter("src/data/result/result.txt", true));
             PrintWriter pw = new PrintWriter(fw);
@@ -443,16 +445,34 @@ public class Test {
             pw.print(constForm.getCountry() + ":");
 
             for (int i = 0; i < userAnsString.length; i++){
-                if (i == (userAnsString.length) - 1)
-                    pw.print(userAnsString[i]);
-                else pw.print(userAnsString[i] + ":");
+                pw.print(userAnsString[i] + ":");
             }
+
+            pw.print(correct);
             pw.println();
             pw.close();
         }
         catch(IOException e){
             System.out.println("File to read " + resultFile + " not found!");
         }
+    }
+
+    public int compareAns() {
+        int count = 0;
+        char tempAns;
+
+        for (int i = 0; i < userAnsInt.length; i++) {
+            tempAns = userAnsString[i].charAt(0);
+//            System.out.println("temp at index: "+ i + "= " + userAnsString[i].charAt(0));
+
+            if (tempAns == (quesList.get(i).getAns())) {
+                count++;
+            }
+//            System.out.println("UserInput Value at index: " + i + "= " + quesList.get(i).getAns());
+        }
+
+//        System.out.println("Correct Answers = " + count);
+        return count;
     }
 }
 

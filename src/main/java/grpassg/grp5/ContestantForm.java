@@ -20,7 +20,6 @@ public class ContestantForm extends Stage {
     private ArrayList<String> contCountryArrayList = new ArrayList<String>();
     private ImageView contCountryFlagImg = new ImageView();
     private String country;
-    private Test test = new Test();
     private File contestantFile = new File("src/data/contestant", "contestant.txt");
 
     public ContestantForm() {
@@ -50,7 +49,7 @@ public class ContestantForm extends Stage {
 
         labelMsg = new Label(" ");
         labelMsg.setLayoutX(50);
-        labelMsg.setLayoutY(85);
+        labelMsg.setLayoutY(95);
 
         Button btnDone = new Button("Done");
         btnDone.setLayoutX(400);

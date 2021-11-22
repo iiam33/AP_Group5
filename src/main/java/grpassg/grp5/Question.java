@@ -1,7 +1,6 @@
 package grpassg.grp5;
 
 public class Question {
-
     private int type;
     private char answer;
     private String theQues;
@@ -27,6 +26,8 @@ public class Question {
     public int getType() {
         return type;
     }
+
+    public char getAns() {return answer; }
 
     public String getTheQues() {
         return theQues;
