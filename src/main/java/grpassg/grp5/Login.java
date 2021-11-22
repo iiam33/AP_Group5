@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ContestantForm extends Stage {
+public class Login extends Stage {
     private TextField txtName;
     private Pane constEntryPane, imgPane;
     private ComboBox<String> comboBoxCountry = new ComboBox();
@@ -22,7 +22,7 @@ public class ContestantForm extends Stage {
     private String country;
     private File contestantFile = new File("src/data/contestant", "contestant.txt");
 
-    public ContestantForm() {
+    public Login() {
         this.setTitle("Contestant Entry Form");
         readFromContestantFile();
 

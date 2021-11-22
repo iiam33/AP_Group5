@@ -14,7 +14,7 @@ public class Result extends Stage {
     private Label labName, labResult, labResultList, labAccuracy;
     private String name, country, correct;
     private File questFile = new File("src/data/question", "inputdata.txt");
-    private File resultFile = new File("src/data/result", "result.txt");
+    private File resultFile = new File("src/data/result", "answers.txt");
     private Pane resultPane;
     private ComboBox<String> comboBoxName = new ComboBox();
     private ArrayList<String[]> resultList = new ArrayList<String[]>();

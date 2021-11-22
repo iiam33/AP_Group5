@@ -9,13 +9,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class Test {
     private final int TIMELIMIT = 5;
     private File questFile = new File("src/data/question", "inputdata.txt");
-    private File resultFile = new File("src/data/question", "result.txt");
+    private File resultFile = new File("src/data/question", "answers.txt");
     private int totQues = 0;
     private int activeQ = 1; //first question
     private Label labQuesNo, labQues, labName;
@@ -29,17 +34,14 @@ public class Test {
     private Scene testScene;
     private Label labTimer = new Label();
     private Thread timerThread;
-    private ContestantForm constForm;
+    private Login login;
     private Result result;
     private LinkedList<Question> quesList = new LinkedList<Question>();
     private int seconds = TIMELIMIT * 60;
     private int userAnsInt[] = new int[25];
     private String userAnsString[] = new String[25];
     private String countryName = "";
-//    private ArrayList<String> correctAns = new ArrayList<String>();
-//    private int userAnsInt[] = new int[25];
-//    private String userAnsString[] = new String[25];
-//    public LinkedList<String> userIn = new LinkedList<> (Arrays.asList(userAnsString));
+    private MediaPlayer mdPlayer;
 
     public void start(Stage testStage) {
         testStage.setTitle("Miss Universe Knowledge Test");
@@ -236,10 +238,10 @@ public class Test {
         testScene = new Scene(testPane, 650, 775);
         reloadQues();
         testStage.hide();
-        constForm = new ContestantForm();
-        constForm.setOnHiding(e -> {
-            labName.setText(constForm.getName());
-            countryName = constForm.getCountry();
+        login = new Login();
+        login.setOnHiding(e -> {
+            labName.setText(login.getName());
+            countryName = login.getCountry();
             getFlagImg(countryName);
             testStage.setScene(testScene);
             testStage.show();
@@ -398,6 +400,12 @@ public class Test {
                     seconds--;
                     labTimer.setText("Time left: " + displayRemainTime());
                     setSecond(seconds);
+                    if (seconds == 60) {
+                        playCountdownSound();
+                    }
+                    if (seconds == 0) {
+                        System.exit(0);
+                    }
                 });
             }
         });   timerThread.start();
@@ -417,6 +425,19 @@ public class Test {
 
     public void stopTimer() {
         timerThread.stop();
+    }
+
+    public void playCountdownSound() {
+        File soundFile =  new File("src/data/question/audio/one_min_remaining.wav").getAbsoluteFile();
+        try {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
+            Clip myClip = AudioSystem.getClip();
+            myClip.open(ais);
+            myClip.start();
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
     }
 
     public void convertUserAnsToString() {
@@ -439,10 +460,10 @@ public class Test {
         convertUserAnsToString();
         int correct = compareAns();
         try{
-            PrintWriter fw = new PrintWriter(new FileWriter("src/data/result/result.txt", true));
+            PrintWriter fw = new PrintWriter(new FileWriter("src/data/result/answers.txt", true));
             PrintWriter pw = new PrintWriter(fw);
             pw.print(labName.getText() + ":");
-            pw.print(constForm.getCountry() + ":");
+            pw.print(login.getCountry() + ":");
 
             for (int i = 0; i < userAnsString.length; i++){
                 pw.print(userAnsString[i] + ":");
@@ -463,15 +484,11 @@ public class Test {
 
         for (int i = 0; i < userAnsInt.length; i++) {
             tempAns = userAnsString[i].charAt(0);
-//            System.out.println("temp at index: "+ i + "= " + userAnsString[i].charAt(0));
 
             if (tempAns == (quesList.get(i).getAns())) {
                 count++;
             }
-//            System.out.println("UserInput Value at index: " + i + "= " + quesList.get(i).getAns());
         }
-
-//        System.out.println("Correct Answers = " + count);
         return count;
     }
 }
