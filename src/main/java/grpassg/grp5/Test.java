@@ -64,8 +64,8 @@ public class Test {
         startCountdownTimer();
 
         imgFlag = new ImageView();
-        imgFlag.setFitHeight(30);
-        imgFlag.setFitWidth(40);
+        imgFlag.setFitHeight(68);
+        imgFlag.setFitWidth(90);
 
         imgQues = new ImageView();
         imgQues.setLayoutX(25);
