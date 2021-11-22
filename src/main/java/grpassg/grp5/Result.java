@@ -3,19 +3,11 @@ package grpassg.grp5;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Scanner;
 
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class Result extends Stage {
@@ -33,7 +25,7 @@ public class Result extends Stage {
         this.setTitle("Result Form");
         readFromResultFile();
 
-        labName = new Label("Enter your name");
+        labName = new Label("Your name");
         labName.setLayoutX(50);
         labName.setLayoutY(25);
 
@@ -47,15 +39,15 @@ public class Result extends Stage {
 
         labResult = new Label(" ");
         labResult.setLayoutX(50);
-        labResult.setLayoutY(85);
+        labResult.setLayoutY(70);
 
         labResultList = new Label(" ");
         labResultList.setLayoutX(50);
-        labResultList.setLayoutY(120);
+        labResultList.setLayoutY(108);
 
         labAccuracy = new Label(" ");
         labAccuracy.setLayoutX(50);
-        labAccuracy.setLayoutY(300);
+        labAccuracy.setLayoutY(290);
         labAccuracy.setStyle("-fx-font-weight:bold;");
 
         resultPane = new Pane();

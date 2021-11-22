@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     private Scene mainScene;
-    private Button btnLogin, btnProceed;
+    private Button btnLogin, btnProceed, btnResult;
     private Pane mainPane;
     private Test test = new Test();
 
@@ -30,7 +30,7 @@ public class Main extends Application {
         groupName.setLayoutY(120);
 
         btnLogin = new Button("Login");
-        btnLogin.setLayoutX(120);
+        btnLogin.setLayoutX(150);
         btnLogin.setLayoutY(160);
 
         btnLogin.setOnAction(e -> {
@@ -45,11 +45,19 @@ public class Main extends Application {
             test.start(mainStage);
         });
 
+        btnResult = new Button("Result");
+        btnResult.setLayoutX(210);
+        btnResult.setLayoutY(160);
+
+        btnResult.setOnAction(e -> {
+            new Result();
+        });
+
         mainPane = new Pane();
         mainPane.getChildren().add(mainTitle);
         mainPane.getChildren().add(groupName);
         mainPane.getChildren().add(btnLogin);
-        mainPane.getChildren().add(btnProceed);
+        mainPane.getChildren().add(btnResult);
         mainScene = new Scene(mainPane, 400, 300);
         mainStage.setScene(mainScene);
         mainStage.show();
