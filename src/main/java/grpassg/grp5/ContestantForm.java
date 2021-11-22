@@ -19,6 +19,7 @@ public class ContestantForm extends Stage {
     private Label labelMsg;
     private ArrayList<String> contCountryArrayList = new ArrayList<String>();
     private ImageView contCountryFlagImg = new ImageView();
+    private String country;
     private Test test = new Test();
     private File contestantFile = new File("src/data/contestant", "contestant.txt");
 
@@ -44,8 +45,7 @@ public class ContestantForm extends Stage {
             File imgFile = new File("src/data/contestant/flag/" + contCountryArrayList.get(i) + ".png");
             Image img = new Image(imgFile.toURI().toString());
             contCountryFlagImg.setImage(img);
-            System.out.println("src/data/contestant/flag/" + contCountryArrayList.get(i) + ".png");
-            System.out.println("Selection made: [" + i + "] ");
+            setCountry(contCountryArrayList.get(i));
         });
 
         labelMsg = new Label(" ");
@@ -58,7 +58,6 @@ public class ContestantForm extends Stage {
         btnDone.setOnAction(e -> {
             if(checkForm()) {
                 this.hide();
-                test.startCountdownTimer();
             }
             else {
                 System.out.println("All field is mandatory.");
@@ -119,6 +118,8 @@ public class ContestantForm extends Stage {
         return txtName.getText();
     }
 
-    public String getCountry() { return comboBoxCountry.getValue(); }
+    public String getCountry() { return country; }
+
+    public void setCountry(String c) { country = c; }
 }
 

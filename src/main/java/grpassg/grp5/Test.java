@@ -3,10 +3,7 @@ package grpassg.grp5;
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -14,30 +11,31 @@ import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class Test {
+    private final int TIMELIMIT = 5;
     private File questFile = new File("src/data/question", "inputdata.txt");
     private File resultFile = new File("src/data/question", "result.txt");
     private int totQues = 0;
     private int activeQ = 1; //first question
     private Label labQuesNo, labQues, labName;
-    private ImageView imgQues, imglabA, imglabB, imglabC, imglabD;
+    private ImageView imgQues, imglabA, imglabB, imglabC, imglabD, imgFlag;
     private Label labA, labB, labC, labD;
     private RadioButton radChoice1, radChoice2, radChoice3, radChoice4;
     private ToggleGroup grpChoices;
     private Button btnPrev, btnNext, btnSubmit;
-    private Pane testPane;
-    private Pane paneC;
+    private Pane testPane, imgPane, paneC;
+    private HBox timerPane;
     private Scene testScene;
     private Label labTimer = new Label();
-    private Timer timer;
-    private Double interval = 10.0;
+    private Thread timerThread;
     private ContestantForm constForm;
     private Analysis winFarewell;
     private LinkedList<Question> quesList = new LinkedList<Question>();
+    private int seconds = TIMELIMIT * 60;
     private int userAnsInt[] = new int[25];
     private String userAnsString[] = new String[25];
+    private String countryName = "";
     //Results results = new Results();
 
     public void start(Stage testStage) {
@@ -60,12 +58,14 @@ public class Test {
         labQues.setLayoutY(100);
         labQues.setStyle("-fx-font-size: 10pt;-fx-font-weight:bold;");
 
-        labTimer = new Label();
-        labTimer.setLayoutX(25);
-        labTimer.setLayoutY(678);
-        labTimer.setText("Time left: " + interval);
+        labTimer.setText("Time left: " + "");
         labTimer.setTextFill(Color.RED);
         labTimer.setStyle("-fx-font-size: 10pt;-fx-font-weight:bold;");
+        startCountdownTimer();
+
+        imgFlag = new ImageView();
+        imgFlag.setFitHeight(30);
+        imgFlag.setFitWidth(40);
 
         imgQues = new ImageView();
         imgQues.setLayoutX(25);
@@ -116,6 +116,11 @@ public class Test {
         labD.setLayoutX(25);
         radChoice4 = new RadioButton("");
         radChoice4.setLayoutX(50);
+
+        imgPane = new Pane();
+        imgPane.setLayoutX(200);
+        imgPane.setLayoutY(20);
+        imgPane.getChildren().add(imgFlag);
 
         grpChoices = new ToggleGroup();
 
@@ -206,7 +211,14 @@ public class Test {
             testStage.hide();
             winFarewell.showStage();
             submitAns();
+            stopTimer();
         });
+
+        timerPane = new HBox();
+        timerPane.setLayoutX(25);
+        timerPane.setLayoutY(678);
+        timerPane.getChildren().add(labTimer);
+
         testPane = new Pane();
         testPane.getChildren().add(labNameDesc);
         testPane.getChildren().add(labName);
@@ -216,7 +228,8 @@ public class Test {
         testPane.getChildren().add(btnNext);
         testPane.getChildren().add(btnPrev);
         testPane.getChildren().add(btnSubmit);
-        testPane.getChildren().add(labTimer);
+        testPane.getChildren().add(timerPane);
+        testPane.getChildren().add(imgPane);
 
         testScene = new Scene(testPane, 650, 775);
         reloadQues();
@@ -224,6 +237,8 @@ public class Test {
         constForm = new ContestantForm();
         constForm.setOnHiding(e -> {
             labName.setText(constForm.getName());
+            countryName = constForm.getCountry();
+            getFlagImg(countryName);
             testStage.setScene(testScene);
             testStage.show();
         });
@@ -364,20 +379,43 @@ public class Test {
         }
     }
 
+    public void getFlagImg(String cname) {
+        File imgFile = new File("src/data/contestant/flag/" + cname + ".png");
+        Image img = new Image(imgFile.toURI().toString());
+        imgFlag.setImage(img);
+    }
+
     public void startCountdownTimer() {
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
-                if(interval > 0)
-                {
-                    Platform.runLater(() -> labTimer.setText("Time left: " + interval));
-                    System.out.println(interval);
-                    interval--;
+        timerThread = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                else
-                    timer.cancel();
+                Platform.runLater(() -> {
+                    seconds--;
+                    labTimer.setText("Time left: " + displayRemainTime());
+                    setSecond(seconds);
+                });
             }
-        }, 1000,1000);
+        });   timerThread.start();
+    }
+
+    public String displayRemainTime() {
+        int min = seconds / 60;
+        int minTosec = min * 60;
+        int sec = seconds - minTosec;
+        String time = String.format("0" + "%d:%02d", min, sec);
+        return time;
+    }
+
+    public void setSecond(int s) {
+        seconds = s;
+    }
+
+    public void stopTimer() {
+        timerThread.stop();
     }
 
     public void convertUserAnsToString() {
