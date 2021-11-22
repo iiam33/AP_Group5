@@ -19,7 +19,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class Result extends Stage {
-    private Label labName, labResult, labResultList;
+    private Label labName, labResult, labResultList, labAccuracy;
     private String name, country, correct;
     private File questFile = new File("src/data/question", "inputdata.txt");
     private File resultFile = new File("src/data/result", "result.txt");
@@ -53,11 +53,17 @@ public class Result extends Stage {
         labResultList.setLayoutX(50);
         labResultList.setLayoutY(120);
 
+        labAccuracy = new Label(" ");
+        labAccuracy.setLayoutX(50);
+        labAccuracy.setLayoutY(300);
+        labAccuracy.setStyle("-fx-font-weight:bold;");
+
         resultPane = new Pane();
         resultPane.getChildren().add(labName);
         resultPane.getChildren().add(comboBoxName);
         resultPane.getChildren().add(labResult);
         resultPane.getChildren().add(labResultList);
+        resultPane.getChildren().add(labAccuracy);
         this.setScene(new Scene(resultPane, 570, 350));
         this.show();
        /* String musicFile = "src/data/sayonara.mp3";
@@ -104,7 +110,16 @@ public class Result extends Stage {
                 + "16.   " + resultList.get(i)[15] + "\t\t    " + "17.   " + resultList.get(i)[16] + "\t\t    " + "18.   " + resultList.get(i)[17] + "\t\t    "
                 + "19.   " + resultList.get(i)[18] + "\t\t    " + "20.   " + resultList.get(i)[19] + "\n\n" + "21.   " + resultList.get(i)[20] + "\t\t    "
                 + "22.   " + resultList.get(i)[21] + "\t\t    " + "23.   " + resultList.get(i)[22] + "\t\t    " + "24.   " + resultList.get(i)[23] + "\t\t    "
-                + "25.   " + resultList.get(i)[24] + "\t\t");
+                + "25.   " + resultList.get(i)[24] + "\t\t"
+        );
+        Double accuracy = calAccuracy(i);
+        String s = Double.toString(accuracy);
+        labAccuracy.setText("Accuracy: " + s + " %");
+    }
+
+    public double calAccuracy(int i) {
+        Double accuracy = Math.floor((Double.valueOf(correctList.get(i)) / 25) * 100);
+        return accuracy;
     }
 }
 
