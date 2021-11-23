@@ -47,12 +47,12 @@ public class Analysis extends Stage {
         labAverage.setLayoutY(300);
         labAverage.setStyle("-fx-font-weight:bold;");
 
-        labHighest = new Label("Highest Score: " + Double.valueOf(calAccuracy(contestantResultList.get(0)[2])) + " %");
+        labHighest = new Label("Highest Score: " + getHighest() + " %");
         labHighest.setLayoutX(250);
         labHighest.setLayoutY(300);
         labHighest.setStyle("-fx-font-weight:bold;");
 
-        labWinner = new Label("Winner: " + contestantResultList.get(0)[0]);
+        labWinner = new Label("Winner: " + getWinner());
         labWinner.setLayoutX(420);
         labWinner.setLayoutY(300);
         labWinner.setStyle("-fx-font-weight:bold;");
@@ -134,5 +134,19 @@ public class Analysis extends Stage {
         averageScore = totalScore / contestantResultList.size();
 
         return Double.valueOf(df.format(averageScore));
+    }
+
+    public Double getHighest() {
+        if(contestantResultList.size() != 0)
+            return Double.valueOf(calAccuracy(contestantResultList.get(0)[2]));
+        else
+            return 0.0;
+    }
+
+    public String getWinner() {
+        if(contestantResultList.size() != 0)
+            return contestantResultList.get(0)[0];
+        else
+            return "";
     }
 }
