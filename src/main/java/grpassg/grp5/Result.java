@@ -2,6 +2,7 @@ package grpassg.grp5;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,16 +15,17 @@ public class Result extends Stage {
     private Label labName, labResult, labResultList, labAccuracy;
     private String name, country, correct;
     private File questFile = new File("src/data/question", "inputdata.txt");
-    private File resultFile = new File("src/data/result", "result.txt");
+    private File answerFile = new File("src/data/result", "answers.txt");
     private Pane resultPane;
     private ComboBox<String> comboBoxName = new ComboBox();
     private ArrayList<String[]> resultList = new ArrayList<String[]>();
     private ArrayList<String> correctList = new ArrayList<String>();
-   // private MediaPlayer mdPlayer;
+    private DecimalFormat df = new DecimalFormat("#.0");
 
-    public Result() {
+    public Result() {//The result application window
+
         this.setTitle("Result Form");
-        readFromResultFile();
+        readFromAnswerFile();
 
         labName = new Label("Your name");
         labName.setLayoutX(50);
@@ -34,21 +36,28 @@ public class Result extends Stage {
         comboBoxName.valueProperty().addListener((observable) -> {
             int i = comboBoxName.getSelectionModel().getSelectedIndex();
             displayResult(i);
-            labResult.setText("Result");
         });
 
-        labResult = new Label(" ");
+        labResult = new Label("Result");
         labResult.setLayoutX(50);
         labResult.setLayoutY(70);
+        labResult.setStyle("-fx-font-weight:bold;");
 
         labResultList = new Label(" ");
         labResultList.setLayoutX(50);
         labResultList.setLayoutY(108);
 
-        labAccuracy = new Label(" ");
+        labAccuracy = new Label("Accuracy: ");
         labAccuracy.setLayoutX(50);
         labAccuracy.setLayoutY(290);
         labAccuracy.setStyle("-fx-font-weight:bold;");
+
+        Button btnClose = new Button("CLOSE");
+        btnClose.setLayoutX(470);
+        btnClose.setLayoutY(290);
+        btnClose.setOnAction(e -> {
+            this.close();
+        });
 
         resultPane = new Pane();
         resultPane.getChildren().add(labName);
@@ -56,44 +65,43 @@ public class Result extends Stage {
         resultPane.getChildren().add(labResult);
         resultPane.getChildren().add(labResultList);
         resultPane.getChildren().add(labAccuracy);
+        resultPane.getChildren().add(btnClose);
         this.setScene(new Scene(resultPane, 570, 350));
         this.show();
-       /* String musicFile = "src/data/sayonara.mp3";
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        mdPlayer = new MediaPlayer(sound);*/
     }
 
-    public void readFromResultFile() {
+    public void readFromAnswerFile() { //Function to read content from external files
         Scanner readFile;
         try {
-            readFile = new Scanner(resultFile);
+            readFile = new Scanner(answerFile);
             while (readFile.hasNextLine()) {
                 String aLine = readFile.nextLine();
                 Scanner sline = new Scanner(aLine);
-                sline.useDelimiter(":");
+                sline.useDelimiter(":"); //To set a delimiting pattern when the programs scan ":"
                 while (sline.hasNext()) {
-                    name = sline.next();
-                    country = sline.next();
-                    String result[] = {
+                    name = sline.next(); //Display participant's name
+                    country = sline.next(); //Display participant's selected country
+                    String result[] = { //Result array to print the results of each question
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next()
                     };
-                    correct = sline.next();
-                    comboBoxName.getItems().add(name);
-                    resultList.add(result);
-                    correctList.add(correct);
+                    correct = sline.next(); //Display the total correct answers gotten
+                    comboBoxName.getItems().add(name); //If there's a participants names in result file, add name to dropdown list
+                    resultList.add(result); //Same with dropdown list (name), add result if there's results
+                    correctList.add(correct); //Same with dropdown list (name), add total correct answer if there's total correct answer
                 }
                 sline.close();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File to read " + questFile + " not found!");
+            System.out.println("File to read " + answerFile + " not found!");
         }
     }
 
-    public void displayResult(int i) {
+    public void displayResult(int i) { //Function to display results
+
         labResultList.setText("  1.   " + resultList.get(i)[0] + "\t\t    " + "  2.   " + resultList.get(i)[1] + "\t\t    " + "  3.   " + resultList.get(i)[2] + "\t\t    "
                 + "  4.   " + resultList.get(i)[3] + "\t\t    " + "  5.   " + resultList.get(i)[4] + "\n\n" + "  6.   " + resultList.get(i)[5] + "\t\t    "
                 + "  7.   " + resultList.get(i)[6] + "\t\t    " + "  8.   " + resultList.get(i)[7] + "\t\t    " + "  9.   " + resultList.get(i)[8] + "\t\t    "
@@ -109,9 +117,10 @@ public class Result extends Stage {
         labAccuracy.setText("Accuracy: " + s + " %");
     }
 
-    public double calAccuracy(int i) {
+    public double calAccuracy(int i) { //Function to calculate the percentage
+
         Double accuracy = Math.floor((Double.valueOf(correctList.get(i)) / 25) * 100);
-        return accuracy;
+        return Double.valueOf(df.format(accuracy)); //returns the value in 1 decimal point format
     }
 }
 

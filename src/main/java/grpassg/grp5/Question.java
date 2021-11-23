@@ -8,7 +8,7 @@ public class Question {
     private String quesPic;
     private boolean selected[] = new boolean[4];
 
-    public Question(int t, char a, String tq, String c[], String qp) {
+    public Question(int t, char a, String tq, String c[], String qp) { //Question's constructor
         type = t;
         answer = a;
         theQues = tq;
@@ -25,25 +25,25 @@ public class Question {
 
     public int getType() {
         return type;
-    }
+    } //Function to get the type of questions
 
-    public char getAns() {return answer; }
+    public char getAns() {return answer; } //Function to get the correct Answer
 
     public String getTheQues() {
         return theQues;
-    }
+    } //Function to get the questions
 
     public String getQuesPic() {
         return quesPic;
-    }
+    } //Function to get the question's image
 
     public String getChoice(int no) {
         return choices[no];
-    }
+    } //Function to get the choices available
 
     public boolean getSelected(int no) {
         return selected[no];
-    }
+    } //Function to get the user's input
 
     public void setSelected(int no, boolean status) {
         selected[no] = status;

@@ -1,5 +1,5 @@
 Yeoh:Laos:yeoh1.jpg:yeoh2.jpg:yeoh3.jpg:12345
-Ayla:Kuwait:ayla1.jpg:ayla2.jpg:ayla3.jpg:23456
+Ayla.:Kuwait:ayla1.jpg:ayla2.jpg:ayla3.jpg:23456
 Wei Ler:Kiribati:wl1.jpg:wl2.jpg:wl3.jpg:34567
 Victoria:Latvia:vic1.jpg:vic2.jpg:vic3.jpg:45678
-Hon Keat:Kyrgyzstan:vic1.jpg:vic2.jpg:vic3.jpg:56789
+Hon Keat:Kyrgyzstan:hk1.jpg:hk2.jpg:hk3.jpg:56789
