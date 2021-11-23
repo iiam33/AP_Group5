@@ -6,3 +6,4 @@ Yeoh:Laos:B:B:D:B:D:C:B:A:D:B:D:D:C:A:B:D:C:D:C:B:C:A:D:A:C:14
 Ayla.:Kuwait:B:A:D:C:B:C:C:B:D:A:B:D:C:B:B:D:D:D:A:C:C:A:D:D:A:12
 Victoria:Laos:D:B:C:B:A:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:1
 Hon Keat:Latvia:A:B:C:D:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:0
+Hon Keat:Kyrgyzstan:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:0

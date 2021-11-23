@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,6 +21,7 @@ public class Analysis extends Stage {
     private ArrayList<String[]> contestantResultList = new ArrayList<String[]>();
     private ListView<String> leaderboardList = new ListView<String>();
     private Label labAverage, labHighest, labWinner;
+    private DecimalFormat df = new DecimalFormat("#.0");
 
     public Analysis() {
         this.setTitle("Analysis Form");
@@ -45,12 +47,12 @@ public class Analysis extends Stage {
         labAverage.setLayoutY(300);
         labAverage.setStyle("-fx-font-weight:bold;");
 
-        labHighest = new Label("Highest Score: " + calAccuracy(contestantResultList.get(0)[2]) + " %");
+        labHighest = new Label("Highest Score: " + Double.valueOf(calAccuracy(contestantResultList.get(0)[2])) + " %");
         labHighest.setLayoutX(250);
         labHighest.setLayoutY(300);
         labHighest.setStyle("-fx-font-weight:bold;");
 
-        labWinner = new Label("Highest Score: " + contestantResultList.get(0)[0]);
+        labWinner = new Label("Winner: " + contestantResultList.get(0)[0]);
         labWinner.setLayoutX(420);
         labWinner.setLayoutY(300);
         labWinner.setStyle("-fx-font-weight:bold;");
@@ -117,13 +119,13 @@ public class Analysis extends Stage {
         }
     }
 
-    public double calAccuracy(String scoreString) {
+    public Double calAccuracy(String scoreString) {
         Double score = Double.parseDouble(scoreString);
         Double accuracy = Math.floor((Double.valueOf(score) / 25) * 100);
-        return accuracy;
+        return Double.valueOf(df.format(accuracy));
     }
 
-    public double calAverage() {
+    public Double calAverage() {
         Double totalScore = 0.0;
         Double averageScore = 0.0;
         for(int i = 0; i < contestantResultList.size(); i++) {
@@ -131,6 +133,6 @@ public class Analysis extends Stage {
         }
         averageScore = totalScore / contestantResultList.size();
 
-        return averageScore;
+        return Double.valueOf(df.format(averageScore));
     }
 }

@@ -2,6 +2,7 @@ package grpassg.grp5;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,6 +20,7 @@ public class Result extends Stage {
     private ComboBox<String> comboBoxName = new ComboBox();
     private ArrayList<String[]> resultList = new ArrayList<String[]>();
     private ArrayList<String> correctList = new ArrayList<String>();
+    private DecimalFormat df = new DecimalFormat("#.0");
 
     public Result() {
         this.setTitle("Result Form");
@@ -115,7 +117,7 @@ public class Result extends Stage {
 
     public double calAccuracy(int i) {
         Double accuracy = Math.floor((Double.valueOf(correctList.get(i)) / 25) * 100);
-        return accuracy;
+        return Double.valueOf(df.format(accuracy));
     }
 }
 
