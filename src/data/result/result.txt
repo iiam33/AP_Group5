@@ -1,4 +1,2 @@
-qwerrrrr:Laos:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:0
-ffff:Laos:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:0
-qwer:Laos:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:null:0
-dddd:Laos:D:B:C:B:D:A:A:D:D:B:D:A:B:A:A:D:D:D:C:B:C:A:D:A:B:15
+
+
