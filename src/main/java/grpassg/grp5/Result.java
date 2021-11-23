@@ -19,7 +19,6 @@ public class Result extends Stage {
     private ComboBox<String> comboBoxName = new ComboBox();
     private ArrayList<String[]> resultList = new ArrayList<String[]>();
     private ArrayList<String> correctList = new ArrayList<String>();
-   // private MediaPlayer mdPlayer;
 
     public Result() {
         this.setTitle("Result Form");
@@ -58,9 +57,6 @@ public class Result extends Stage {
         resultPane.getChildren().add(labAccuracy);
         this.setScene(new Scene(resultPane, 570, 350));
         this.show();
-       /* String musicFile = "src/data/sayonara.mp3";
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        mdPlayer = new MediaPlayer(sound);*/
     }
 
     public void readFromResultFile() {

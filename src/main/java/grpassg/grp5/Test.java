@@ -41,7 +41,6 @@ public class Test {
     private int userAnsInt[] = new int[25];
     private String userAnsString[] = new String[25];
     private String countryName = "";
-    private MediaPlayer mdPlayer;
 
     public void start(Stage testStage) {
         testStage.setTitle("Miss Universe Knowledge Test");
@@ -69,7 +68,7 @@ public class Test {
         startCountdownTimer();
 
         imgFlag = new ImageView();
-        imgFlag.setFitHeight(68);
+        imgFlag.setFitHeight(60);
         imgFlag.setFitWidth(90);
 
         imgQues = new ImageView();
