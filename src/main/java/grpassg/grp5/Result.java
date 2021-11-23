@@ -9,6 +9,9 @@ import java.util.Scanner;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class Result extends Stage {
@@ -28,10 +31,19 @@ public class Result extends Stage {
 
         labName = new Label("Your name");
         labName.setLayoutX(50);
-        labName.setLayoutY(25);
+        labName.setLayoutY(30);
+        labName.setFont(Font.font("Verdana", FontWeight.NORMAL, FontPosture.REGULAR, 18));
 
         comboBoxName.setLayoutX(200);
         comboBoxName.setLayoutY(25);
+        comboBoxName.setStyle(
+                "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;" +
+                        "    -fx-background-insets: 0 0 -1 0, 0, 1, 2;" +
+                        "    -fx-pref-width: 200;" +
+                        "    -fx-padding: 0.333333em 0.333em 0.333333em 0.33em; /* 4 8 4 8 */" +
+                        "    -fx-text-fill: -fx-text-base-color;" +
+                        "    -fx-alignment: CENTER;" +
+                        "    -fx-content-display: LEFT;");
         comboBoxName.valueProperty().addListener((observable) -> {
             int i = comboBoxName.getSelectionModel().getSelectedIndex();
             displayResult(i);
@@ -40,6 +52,7 @@ public class Result extends Stage {
         labResult = new Label("Result");
         labResult.setLayoutX(50);
         labResult.setLayoutY(70);
+        labResult.setFont(Font.font("Verdana", FontWeight.NORMAL, FontPosture.REGULAR, 18));
         labResult.setStyle("-fx-font-weight:bold;");
 
         labResultList = new Label(" ");
@@ -49,11 +62,18 @@ public class Result extends Stage {
         labAccuracy = new Label("Accuracy: ");
         labAccuracy.setLayoutX(50);
         labAccuracy.setLayoutY(290);
+        labAccuracy.setFont(Font.font("Verdana", FontWeight.NORMAL, FontPosture.REGULAR, 18));
         labAccuracy.setStyle("-fx-font-weight:bold;");
 
-        Button btnClose = new Button("CLOSE");
+        Button btnClose = new Button("Close");
         btnClose.setLayoutX(470);
         btnClose.setLayoutY(290);
+        btnClose.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        btnClose.setStyle("" +
+                "-fx-text-fill: #006464;" +
+                "    -fx-background-color: #DFB951;" +
+                "    -fx-border-radius: 15;" +
+                "    -fx-background-radius: 15;");
         btnClose.setOnAction(e -> {
             this.close();
         });
@@ -65,6 +85,10 @@ public class Result extends Stage {
         resultPane.getChildren().add(labResultList);
         resultPane.getChildren().add(labAccuracy);
         resultPane.getChildren().add(btnClose);
+        resultPane.setStyle("" +
+                "-fx-background-image:" +
+                "url('https://www.freepik.com/download-file/15599884');" +
+                " -fx-background-repeat: no-repeat; -fx-background-size: 1000 1000; -fx-background-position: center center;");
         this.setScene(new Scene(resultPane, 570, 350));
         this.show();
     }
@@ -112,6 +136,7 @@ public class Result extends Stage {
         );
         Double accuracy = calAccuracy(i);
         String s = Double.toString(accuracy);
+        labResultList.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
         labAccuracy.setText("Accuracy: " + s + " %");
     }
 

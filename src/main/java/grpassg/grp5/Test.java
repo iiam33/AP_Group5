@@ -11,6 +11,9 @@ import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import javax.sound.sampled.AudioInputStream;
@@ -47,6 +50,7 @@ public class Test {
         Label labNameDesc = new Label("Name");
         labNameDesc.setLayoutX(25);
         labNameDesc.setLayoutY(25);
+        labNameDesc.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
         labName = new Label("");
         labName.setLayoutX(75);
         labName.setLayoutY(25);
@@ -55,7 +59,8 @@ public class Test {
         labQuesNo = new Label("");
         labQuesNo.setLayoutX(25);
         labQuesNo.setLayoutY(75);
-        labQuesNo.setStyle("-fx-font-family:serif;-fx-text-fill:#0000ff;");
+        labQuesNo.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        labQuesNo.setTextFill(Color.BLUE);
 
         labQues = new Label("");
         labQues.setLayoutX(25);
@@ -64,7 +69,7 @@ public class Test {
 
         labTimer.setText("Time left: " + "");
         labTimer.setTextFill(Color.RED);
-        labTimer.setStyle("-fx-font-size: 10pt;-fx-font-weight:bold;");
+        labTimer.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));;
         startCountdownTimer();
 
         imgFlag = new ImageView();
@@ -103,21 +108,25 @@ public class Test {
 
         labA = new Label("A");
         labA.setLayoutX(25);
+        labA.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
         radChoice1 = new RadioButton("");
         radChoice1.setLayoutX(50);
 
         labB = new Label("B");
         labB.setLayoutX(25);
+        labB.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
         radChoice2 = new RadioButton("");
         radChoice2.setLayoutX(50);
 
         labC = new Label("C");
         labC.setLayoutX(25);
+        labC.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
         radChoice3 = new RadioButton("");
         radChoice3.setLayoutX(50);
 
         labD = new Label("D");
         labD.setLayoutX(25);
+        labD.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
         radChoice4 = new RadioButton("");
         radChoice4.setLayoutX(50);
 
@@ -150,19 +159,38 @@ public class Test {
         paneC.getChildren().add(radChoice4);
         paneC.getChildren().add(imglabD);
 
+
+
         btnPrev = new Button("Previous");
         btnPrev.setLayoutX(25);
         btnPrev.setLayoutY(725);
-        btnPrev.setStyle("-fx-pref-width: 75px;");
+        btnPrev.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        btnPrev.setStyle("-fx-pref-width: 75px;" +
+                        "-fx-text-fill: #006464;" +
+                        "    -fx-background-color: #DFB951;" +
+                        "    -fx-border-radius: 15;" +
+                        "    -fx-background-radius: 15;");
         btnPrev.setDisable(true);
+
         btnNext = new Button("Next");
         btnNext.setLayoutX(125);
         btnNext.setLayoutY(725);
-        btnNext.setStyle("-fx-pref-width: 75px;");
+        btnNext.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        btnNext.setStyle("-fx-pref-width: 75px;" +
+                "-fx-text-fill: #006464;" +
+                "    -fx-background-color: #DFB951;" +
+                "    -fx-border-radius: 15;" +
+                "    -fx-background-radius: 15;");
+
         btnSubmit = new Button("End");
         btnSubmit.setLayoutX(300);
         btnSubmit.setLayoutY(725);
-        btnSubmit.setStyle("-fx-pref-width: 75px;");
+        btnSubmit.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        btnSubmit.setStyle("-fx-pref-width: 75px;" +
+                "-fx-text-fill: #006464;" +
+                "    -fx-background-color: #DFB951;" +
+                "    -fx-border-radius: 15;" +
+                "    -fx-background-radius: 15;");
 
         readFromFile();
         radChoice1.setOnAction(e -> {
@@ -233,6 +261,10 @@ public class Test {
         testPane.getChildren().add(btnSubmit);
         testPane.getChildren().add(timerPane);
         testPane.getChildren().add(imgPane);
+        testPane.setStyle("" +
+                "-fx-background-image:" +
+                "url('https://www.freepik.com/download-file/15599884');" +
+                " -fx-background-repeat: no-repeat; -fx-background-size: 1000 1000; -fx-background-position: center center;");
 
         testScene = new Scene(testPane, 650, 775);
         reloadQues();
@@ -250,6 +282,7 @@ public class Test {
     public void reloadQues() {
         labQuesNo.setText("Question " + Integer.toString(activeQ) + " of " + quesList.size());
         labQues.setText(quesList.get(activeQ-1).getTheQues());
+        labQues.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
         radChoice1.setText(quesList.get(activeQ-1).getChoice(0));
         radChoice2.setText(quesList.get(activeQ-1).getChoice(1));
         radChoice3.setText(quesList.get(activeQ-1).getChoice(2));

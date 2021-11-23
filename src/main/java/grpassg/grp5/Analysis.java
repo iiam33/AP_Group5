@@ -5,6 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -31,6 +34,7 @@ public class Analysis extends Stage {
         Label labLeaderboard = new Label("Leaderboard");
         labLeaderboard.setLayoutX(50);
         labLeaderboard.setLayoutY(25);
+        labLeaderboard.setFont(Font.font("Verdana", FontWeight.NORMAL, FontPosture.REGULAR, 13));
         labLeaderboard.setStyle("-fx-font-weight:bold;");
 
         leaderboardList.setLayoutX(50);
@@ -45,21 +49,30 @@ public class Analysis extends Stage {
         labAverage = new Label("Average Score: " + calAverage() + " %");
         labAverage.setLayoutX(50);
         labAverage.setLayoutY(300);
+        labAverage.setFont(Font.font("Verdana", FontWeight.NORMAL, FontPosture.REGULAR, 13));
         labAverage.setStyle("-fx-font-weight:bold;");
 
         labHighest = new Label("Highest Score: " + getHighest() + " %");
         labHighest.setLayoutX(250);
         labHighest.setLayoutY(300);
+        labHighest.setFont(Font.font("Verdana", FontWeight.NORMAL, FontPosture.REGULAR, 13));
         labHighest.setStyle("-fx-font-weight:bold;");
 
         labWinner = new Label("Winner: " + getWinner());
         labWinner.setLayoutX(420);
         labWinner.setLayoutY(300);
+        labWinner.setFont(Font.font("Verdana", FontWeight.NORMAL, FontPosture.REGULAR, 13));
         labWinner.setStyle("-fx-font-weight:bold;");
 
-        Button btnClose = new Button("CLOSE");
+        Button btnClose = new Button("Close");
         btnClose.setLayoutX(500);
         btnClose.setLayoutY(340);
+        btnClose.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        btnClose.setStyle("" +
+                "-fx-text-fill: #006464;" +
+                "    -fx-background-color: #DFB951;" +
+                "    -fx-border-radius: 15;" +
+                "    -fx-background-radius: 15;");
         btnClose.setOnAction(e -> {
             this.close();
         });
@@ -71,6 +84,10 @@ public class Analysis extends Stage {
         analysisPane.getChildren().add(labHighest);
         analysisPane.getChildren().add(labWinner);
         analysisPane.getChildren().add(btnClose);
+        analysisPane.setStyle("" +
+                "-fx-background-image:" +
+                "url('https://www.freepik.com/download-file/15599884');" +
+                " -fx-background-repeat: no-repeat; -fx-background-size: 1000 1000; -fx-background-position: center center;");
         this.setScene(new Scene(analysisPane, 570, 380));
         this.show();
     }

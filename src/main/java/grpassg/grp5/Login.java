@@ -6,6 +6,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,10 +35,19 @@ public class Login extends Stage {
 
         Label labName = new Label("Select your name");
         labName.setLayoutX(50);
-        labName.setLayoutY(25);
+        labName.setLayoutY(35);
+        labName.setFont(Font.font("Serif", FontWeight.NORMAL, FontPosture.REGULAR, 15));
 
         comboBoxName.setLayoutX(200);
         comboBoxName.setLayoutY(25);
+        comboBoxName.setStyle(
+                "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;" +
+                        "    -fx-background-insets: 0 0 -1 0, 0, 1, 2;" +
+                        "    -fx-pref-width: 200;" +
+                        "    -fx-padding: 0.333333em 0.333em 0.333333em 0.33em; /* 4 8 4 8 */" +
+                        "    -fx-text-fill: -fx-text-base-color;" +
+                        "    -fx-alignment: CENTER;" +
+                        "    -fx-content-display: LEFT;");
         comboBoxName.valueProperty().addListener((observable) -> {
             int i = comboBoxName.getSelectionModel().getSelectedIndex();
             File imgFile1 = new File("src/data/contestant/pic/" + contestantArrayList.get(i)[2]);
@@ -55,19 +67,32 @@ public class Login extends Stage {
 
         contImg1.setFitHeight(240);
         contImg1.setFitWidth(240);
+        contImg1.setLayoutX(20);
+        contImg1.setLayoutY(20);
         contImg2.setFitHeight(240);
         contImg2.setFitWidth(240);
-        contImg2.setLayoutX(270);
+        contImg2.setLayoutX(285);
+        contImg2.setLayoutY(20);
         contImg3.setFitHeight(240);
         contImg3.setFitWidth(240);
-        contImg3.setLayoutX(540);
+        contImg3.setLayoutX(550);
+        contImg3.setLayoutY(20);
 
         Label labCountry = new Label("Select your country");
         labCountry.setLayoutX(50);
-        labCountry.setLayoutY(60);
+        labCountry.setLayoutY(85);
+        labCountry.setFont(Font.font("Serif", FontWeight.NORMAL, FontPosture.REGULAR, 15));
 
         comboBoxCountry.setLayoutX(200);
-        comboBoxCountry.setLayoutY(60);
+        comboBoxCountry.setLayoutY(75);
+        comboBoxCountry.setStyle(
+                "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;" +
+                        "    -fx-background-insets: 0 0 -1 0, 0, 1, 2;" +
+                        "    -fx-pref-width: 200;" +
+                        "    -fx-padding: 0.333333em 0.333em 0.333333em 0.33em; /* 4 8 4 8 */" +
+                        "    -fx-text-fill: -fx-text-base-color;" +
+                        "    -fx-alignment: CENTER;" +
+                        "    -fx-content-display: LEFT;");
         comboBoxCountry.valueProperty().addListener((observable) -> {
             int j = comboBoxCountry.getSelectionModel().getSelectedIndex();
             File imgFile = new File("src/data/contestant/flag/" + contestantArrayList.get(j)[1] + ".png");
@@ -78,19 +103,28 @@ public class Login extends Stage {
 
         Label labPassword = new Label("Enter your password");
         labPassword.setLayoutX(50);
-        labPassword.setLayoutY(95);
+        labPassword.setLayoutY(125);
+        labPassword.setStyle( "    -fx-pref-width: 200;" );
+        labPassword.setFont(Font.font("Serif", FontWeight.NORMAL, FontPosture.REGULAR, 15));
+
 
         passwordField = new PasswordField();
         passwordField.setLayoutX(200);
-        passwordField.setLayoutY(95);
+        passwordField.setLayoutY(120);
 
         labelMsg = new Label(" ");
         labelMsg.setLayoutX(50);
-        labelMsg.setLayoutY(125);
+        labelMsg.setLayoutY(145);
 
         Button btnDone = new Button("Done");
         btnDone.setLayoutX(800);
-        btnDone.setLayoutY(430);
+        btnDone.setLayoutY(470);
+        btnDone.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        btnDone.setStyle("" +
+                "-fx-text-fill: #006464;" +
+                "    -fx-background-color: #DFB951;" +
+                "    -fx-border-radius: 15;" +
+                "    -fx-background-radius: 15;");
         btnDone.setOnAction(e -> {
             if(checkForm()) {
                 this.hide();
@@ -101,6 +135,12 @@ public class Login extends Stage {
         });
 
         imgPane = new Pane();
+        imgPane.setStyle("" +
+                "    -fx-background-color: #fff8e3;" +
+                "    -fx-padding: 15;" +
+                "    -fx-spacing: 10;" +
+                "    -fx-background-radius: 18 18 18 18;"  +
+                "    -fx-border-radius: 18 18 18 18;");
         imgPane.setLayoutX(50);
         imgPane.setLayoutY(170);
         imgPane.getChildren().add(contImg1);
@@ -123,6 +163,10 @@ public class Login extends Stage {
         constEntryPane.getChildren().add(labelMsg);
         constEntryPane.getChildren().add(imgPane);
         constEntryPane.getChildren().add(flagPane);
+        constEntryPane.setStyle("" +
+                "-fx-background-image:" +
+                "url('https://www.freepik.com/download-file/15599884');" +
+                " -fx-background-repeat: no-repeat; -fx-background-size: 1000 1000; -fx-background-position: center center;");
         this.setScene(new Scene(constEntryPane, 900, 500));
         this.show();
     }
