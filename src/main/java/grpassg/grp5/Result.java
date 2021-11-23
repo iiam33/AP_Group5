@@ -14,7 +14,7 @@ public class Result extends Stage {
     private Label labName, labResult, labResultList, labAccuracy;
     private String name, country, correct;
     private File questFile = new File("src/data/question", "inputdata.txt");
-    private File resultFile = new File("src/data/result", "answers.txt");
+    private File answerFile = new File("src/data/result", "answers.txt");
     private Pane resultPane;
     private ComboBox<String> comboBoxName = new ComboBox();
     private ArrayList<String[]> resultList = new ArrayList<String[]>();
@@ -22,7 +22,7 @@ public class Result extends Stage {
 
     public Result() {
         this.setTitle("Result Form");
-        readFromResultFile();
+        readFromAnswerFile();
 
         labName = new Label("Your name");
         labName.setLayoutX(50);
@@ -33,21 +33,28 @@ public class Result extends Stage {
         comboBoxName.valueProperty().addListener((observable) -> {
             int i = comboBoxName.getSelectionModel().getSelectedIndex();
             displayResult(i);
-            labResult.setText("Result");
         });
 
-        labResult = new Label(" ");
+        labResult = new Label("Result");
         labResult.setLayoutX(50);
         labResult.setLayoutY(70);
+        labResult.setStyle("-fx-font-weight:bold;");
 
         labResultList = new Label(" ");
         labResultList.setLayoutX(50);
         labResultList.setLayoutY(108);
 
-        labAccuracy = new Label(" ");
+        labAccuracy = new Label("Accuracy: ");
         labAccuracy.setLayoutX(50);
         labAccuracy.setLayoutY(290);
         labAccuracy.setStyle("-fx-font-weight:bold;");
+
+        Button btnClose = new Button("CLOSE");
+        btnClose.setLayoutX(470);
+        btnClose.setLayoutY(290);
+        btnClose.setOnAction(e -> {
+            this.close();
+        });
 
         resultPane = new Pane();
         resultPane.getChildren().add(labName);
@@ -55,14 +62,15 @@ public class Result extends Stage {
         resultPane.getChildren().add(labResult);
         resultPane.getChildren().add(labResultList);
         resultPane.getChildren().add(labAccuracy);
+        resultPane.getChildren().add(btnClose);
         this.setScene(new Scene(resultPane, 570, 350));
         this.show();
     }
 
-    public void readFromResultFile() {
+    public void readFromAnswerFile() {
         Scanner readFile;
         try {
-            readFile = new Scanner(resultFile);
+            readFile = new Scanner(answerFile);
             while (readFile.hasNextLine()) {
                 String aLine = readFile.nextLine();
                 Scanner sline = new Scanner(aLine);
@@ -85,7 +93,7 @@ public class Result extends Stage {
                 sline.close();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File to read " + questFile + " not found!");
+            System.out.println("File to read " + answerFile + " not found!");
         }
     }
 
