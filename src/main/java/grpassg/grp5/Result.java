@@ -23,7 +23,6 @@ public class Result extends Stage {
     private DecimalFormat df = new DecimalFormat("#.0");
 
     public Result() {//The result application window
-
         this.setTitle("Result Form");
         readFromAnswerFile();
 
@@ -101,7 +100,6 @@ public class Result extends Stage {
     }
 
     public void displayResult(int i) { //Function to display results
-
         labResultList.setText("  1.   " + resultList.get(i)[0] + "\t\t    " + "  2.   " + resultList.get(i)[1] + "\t\t    " + "  3.   " + resultList.get(i)[2] + "\t\t    "
                 + "  4.   " + resultList.get(i)[3] + "\t\t    " + "  5.   " + resultList.get(i)[4] + "\n\n" + "  6.   " + resultList.get(i)[5] + "\t\t    "
                 + "  7.   " + resultList.get(i)[6] + "\t\t    " + "  8.   " + resultList.get(i)[7] + "\t\t    " + "  9.   " + resultList.get(i)[8] + "\t\t    "
@@ -118,7 +116,6 @@ public class Result extends Stage {
     }
 
     public double calAccuracy(int i) { //Function to calculate the percentage
-
         Double accuracy = Math.floor((Double.valueOf(correctList.get(i)) / 25) * 100);
         return Double.valueOf(df.format(accuracy)); //returns the value in 1 decimal point format
     }

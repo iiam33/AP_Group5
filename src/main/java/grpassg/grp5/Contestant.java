@@ -9,7 +9,6 @@ public class Contestant{
     private static String password;
 
     public Contestant(String n, String c, String p1, String p2, String p3, String pw) { //Contestant's constructor\
-
         name = n;
         country = c;
         pic1 = p1;

@@ -24,7 +24,6 @@ public class Analysis extends Stage {
     private DecimalFormat df = new DecimalFormat("#.0");
 
     public Analysis() { //The analysis application window
-
         this.setTitle("Analysis Form");
         readFromAnswerFile();
         rearrangeList();
@@ -108,7 +107,6 @@ public class Analysis extends Stage {
     }
 
     public void rearrangeList() { //Function to re-arrange list
-
         int n = contestantResultList.size();
         String tmpArr[];
 

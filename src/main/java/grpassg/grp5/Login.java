@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Login extends Stage { //Login application window
-    private String name, country,password;
+    private String name = "";
+    private String country = "";
     private PasswordField passwordField;
     private Pane constEntryPane, imgPane, flagPane;
     private ComboBox<String> comboBoxCountry = new ComboBox();
@@ -94,9 +95,10 @@ public class Login extends Stage { //Login application window
         btnDone.setOnAction(e -> {
             if(checkForm()) {
                 this.hide();
+                new Test(getName(), getCountry());
             }
             else {
-                System.out.println("All field is mandatory.");
+                System.out.println("Error. Enable to login!");
             }
         });
 

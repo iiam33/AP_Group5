@@ -14,11 +14,9 @@ public class Main extends Application {
     private Scene mainScene;
     private Button btnLogin, btnResult, btnAnalysis;
     private Pane mainPane;
-    private Test test = new Test();
 
     @Override
     public void start(Stage mainStage) { //Main application window
-
         mainStage.setTitle("Welcome");
         Label mainTitle = new Label("Miss Universe Knowledge Test (MUKT)");
         mainTitle.setFont(Font.font("System", FontWeight.NORMAL, FontPosture.REGULAR, 18));
@@ -35,7 +33,8 @@ public class Main extends Application {
         btnLogin.setLayoutY(160);
 
         btnLogin.setOnAction(e -> {
-            test.start(mainStage);
+            new Login();
+            mainStage.hide();
         });
 
         btnResult = new Button("Result");

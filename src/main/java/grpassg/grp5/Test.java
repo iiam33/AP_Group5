@@ -17,14 +17,15 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class Test {
-
+public class Test extends Stage {
     private final int TIMELIMIT = 5; //Timer duration is set to 5 minutes
     private File questFile = new File("src/data/question", "inputdata.txt");
     private File resultFile = new File("src/data/question", "answers.txt");
     private int totQues = 0; //Total Question
     private int activeQ = 1; //First Question
-    private Label labQuesNo, labQues, labName;
+    private Label labName = new Label("");
+    private Label labQuesNo = new Label("");
+    private Label labQues = new Label("");
     private ImageView imgQues, imglabA, imglabB, imglabC, imglabD, imgFlag;
     private Label labA, labB, labC, labD;
     private RadioButton radChoice1, radChoice2, radChoice3, radChoice4;
@@ -43,13 +44,11 @@ public class Test {
     private String userAnsString[] = new String[25]; //An array to store the user's input in String format
     private String countryName = "";
 
-    public void start(Stage testStage) { //The main application window
-
-        testStage.setTitle("Miss Universe Knowledge Test");
+    public Test(String name, String country) { //The main application window
+        this.setTitle("Miss Universe Knowledge Test");
         Label labNameDesc = new Label("Name");
         labNameDesc.setLayoutX(25);
         labNameDesc.setLayoutY(25);
-        labName = new Label("");
         labName.setLayoutX(75);
         labName.setLayoutY(25);
         labName.setStyle("-fx-pref-width: 100px;-fx-border-color:black;");
@@ -67,7 +66,6 @@ public class Test {
         labTimer.setText("Time left: " + "");
         labTimer.setTextFill(Color.RED);
         labTimer.setStyle("-fx-font-size: 10pt;-fx-font-weight:bold;");
-        startCountdownTimer();
 
         imgFlag = new ImageView();
         imgFlag.setFitHeight(60);
@@ -216,7 +214,7 @@ public class Test {
         btnSubmit.setOnAction(e -> {
             submitAns();
             stopTimer();
-            testStage.hide();
+            this.hide();
             result = new Result();
         });
 
@@ -239,19 +237,15 @@ public class Test {
 
         testScene = new Scene(testPane, 650, 775);
         reloadQues();
-        testStage.hide();
-        login = new Login();
-        login.setOnHiding(e -> {
-            labName.setText(login.getName());
-            countryName = login.getCountry();
-            getFlagImg(countryName);
-            testStage.setScene(testScene);
-            testStage.show();
-        });
+        labName.setText(name);
+        countryName = country;
+        getFlagImg(countryName);
+        startCountdownTimer();
+        this.setScene(testScene);
+        this.show();
     }
 
     public void reloadQues() { //This functions refreshes the question when clicked 'Next' or 'Previous' button
-
         labQuesNo.setText("Question " + Integer.toString(activeQ) + " of " + quesList.size());
         labQues.setText(quesList.get(activeQ-1).getTheQues());
         radChoice1.setText(quesList.get(activeQ-1).getChoice(0));
@@ -336,7 +330,6 @@ public class Test {
     }
 
     public void readFromFile() { //This function reads the content from the file
-
         Scanner sfile;
         int type;
         char answer;
@@ -387,14 +380,12 @@ public class Test {
     }
 
     public void getFlagImg(String cname) { //Get image from contestant file
-
         File imgFile = new File("src/data/contestant/flag/" + cname + ".png");
         Image img = new Image(imgFile.toURI().toString());
         imgFlag.setImage(img);
     }
 
     public void startCountdownTimer() { //Function to start the countdown timer
-
         timerThread = new Thread(() -> {
             while (true) {
                 try {
@@ -418,7 +409,6 @@ public class Test {
     }
 
     public String displayRemainTime() { //Function to display remaining time
-
         int min = seconds / 60;
         int minTosec = min * 60;
         int sec = seconds - minTosec;
@@ -435,7 +425,6 @@ public class Test {
     }
 
     public void playCountdownSound() { //Function to play custom music when the time is approaching the limit
-
         File soundFile =  new File("src/data/question/audio/one_min_remaining.wav").getAbsoluteFile();
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
@@ -449,9 +438,7 @@ public class Test {
     }
 
     public void convertUserAnsToString() { //Function to convert user's input (int) to Strings (Alphabets)
-
         for(int i = 0; i < 25; i++) {
-
             if(userAnsInt[i] == 1)
                 userAnsString[i] = "A";
             else if(userAnsInt[i] == 2)
@@ -466,7 +453,6 @@ public class Test {
     }
 
     public void submitAns(){ //Function to submit and save the answer into external files
-
         reloadQues();
         convertUserAnsToString();
         int correct = compareAns();
@@ -491,7 +477,6 @@ public class Test {
     }
 
     public int compareAns() {//Function to compare user's input answer and pre-existing answer
-
         int count = 0; //Initiate count
         char tempAns;
 
