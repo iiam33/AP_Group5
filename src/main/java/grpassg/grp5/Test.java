@@ -212,7 +212,7 @@ public class Test extends Stage {
             reloadQues();
         });
         btnSubmit.setOnAction(e -> {
-            submitAns();
+            submitAns(name, country);
             stopTimer();
             this.hide();
             result = new Result();
@@ -452,7 +452,7 @@ public class Test extends Stage {
         }
     }
 
-    public void submitAns(){ //Function to submit and save the answer into external files
+    public void submitAns(String name, String country){ //Function to submit and save the answer into external files
         reloadQues();
         convertUserAnsToString();
         int correct = compareAns();
@@ -460,8 +460,8 @@ public class Test extends Stage {
             //Write the user inputs into answers.txt
             PrintWriter fw = new PrintWriter(new FileWriter("src/data/result/answers.txt", true));
             PrintWriter pw = new PrintWriter(fw);
-            pw.print(labName.getText() + ":");
-            pw.print(login.getCountry() + ":");
+            pw.print(name + ":");
+            pw.print(country + ":");
 
             for (int i = 0; i < userAnsString.length; i++){
                 pw.print(userAnsString[i] + ":");
