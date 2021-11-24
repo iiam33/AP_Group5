@@ -241,6 +241,7 @@ public class Test extends Stage {
         countryName = country;
         getFlagImg(countryName);
         startCountdownTimer();
+        playCountdownSound();
         this.setScene(testScene);
         this.show();
     }
@@ -398,7 +399,7 @@ public class Test extends Stage {
                     labTimer.setText("Time left: " + displayRemainTime()); //Display the remaining time
                     setSecond(seconds);
                     if (seconds == 60) {
-                        playCountdownSound();
+                        playOneMinSound();
                     }
                     if (seconds == 0) {
                         System.exit(0);
@@ -424,8 +425,21 @@ public class Test extends Stage {
         timerThread.stop();
     }
 
-    public void playCountdownSound() { //Function to play custom music when the time is approaching the limit
+    public void playOneMinSound() { //Function to play custom music when the time is approaching the limit
         File soundFile =  new File("src/data/question/audio/one_min_remaining.wav").getAbsoluteFile();
+        try {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
+            Clip myClip = AudioSystem.getClip();
+            myClip.open(ais);
+            myClip.start();
+        }
+        catch(Exception e) { //Print an error saying when result file does not exist
+            System.out.println(e);
+        }
+    }
+
+    public void playCountdownSound() { //Function to play custom music when the timer starts
+        File soundFile =  new File("src/data/question/audio/five_min_remaining.wav").getAbsoluteFile();
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
             Clip myClip = AudioSystem.getClip();
