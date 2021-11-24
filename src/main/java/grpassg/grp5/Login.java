@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Login extends Stage {
+public class Login extends Stage { //Login application window
     private String name, country,password;
     private PasswordField passwordField;
     private Pane constEntryPane, imgPane, flagPane;
@@ -127,7 +127,7 @@ public class Login extends Stage {
         this.show();
     }
 
-    public void readFromContestantFile() {
+    public void readFromContestantFile() { //Read contents from Contestant file
         Scanner readFile;
 
         try {
@@ -149,31 +149,34 @@ public class Login extends Stage {
         }
     }
 
-    public boolean checkForm() {
+    public boolean checkForm() { //Function to check user's input
+
         boolean isValidated = false;
         int i = comboBoxName.getSelectionModel().getSelectedIndex();
 
+        //If user skipped the password section, print warning
         if (comboBoxName.getValue() == null || comboBoxCountry.getValue() == null || passwordField.getText().trim().isEmpty()) {
             labelMsg.setText("ALL FIELD IS MANDATORY");
             labelMsg.setTextFill(Color.web("red"));
             System.out.println(passwordField.getText());
         }
+        //If user key in the wrong password, print warning
         else if(!passwordField.getText().equals(contestantArrayList.get(i)[5])) {
             labelMsg.setText("PASSWORD NOT MATCHED");
             labelMsg.setTextFill(Color.web("red"));
         }
-        else {
+        else { //If it doesn't match either of the if statement then allow validation
             isValidated = true;
         }
         return isValidated;
     }
 
-    public String getName() { return name; }
+    public String getName() { return name; } //Function to get name
 
-    public void setName(String n) { name = n; }
+    public void setName(String n) { name = n; } //Function to set name
 
-    public String getCountry() { return country; }
+    public String getCountry() { return country; } //Function to get contestant's country name
 
-    public void setCountry(String c) { country = c; }
+    public void setCountry(String c) { country = c; } //Function to set contestant's country name
 }
 

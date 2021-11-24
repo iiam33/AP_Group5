@@ -17,7 +17,8 @@ public class Main extends Application {
     private Test test = new Test();
 
     @Override
-    public void start(Stage mainStage) {
+    public void start(Stage mainStage) { //Main application window
+
         mainStage.setTitle("Welcome");
         Label mainTitle = new Label("Miss Universe Knowledge Test (MUKT)");
         mainTitle.setFont(Font.font("System", FontWeight.NORMAL, FontPosture.REGULAR, 18));
