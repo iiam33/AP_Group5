@@ -25,7 +25,7 @@ public class Result extends Stage {
     private ArrayList<String> correctList = new ArrayList<String>();
     private DecimalFormat df = new DecimalFormat("#.0");
 
-    public Result() {
+    public Result() {//The result application window
         this.setTitle("Result Form");
         readFromAnswerFile();
 
@@ -66,7 +66,7 @@ public class Result extends Stage {
         labAccuracy.setStyle("-fx-font-weight:bold;");
 
         Button btnClose = new Button("Close");
-        btnClose.setLayoutX(470);
+        btnClose.setLayoutX(570);
         btnClose.setLayoutY(290);
         btnClose.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
         btnClose.setStyle("" +
@@ -89,32 +89,32 @@ public class Result extends Stage {
                 "-fx-background-image:" +
                 "url('https://www.freepik.com/download-file/15599884');" +
                 " -fx-background-repeat: no-repeat; -fx-background-size: 1000 1000; -fx-background-position: center center;");
-        this.setScene(new Scene(resultPane, 570, 350));
+        this.setScene(new Scene(resultPane, 670, 350));
         this.show();
     }
 
-    public void readFromAnswerFile() {
+    public void readFromAnswerFile() { //Function to read content from external files
         Scanner readFile;
         try {
             readFile = new Scanner(answerFile);
             while (readFile.hasNextLine()) {
                 String aLine = readFile.nextLine();
                 Scanner sline = new Scanner(aLine);
-                sline.useDelimiter(":");
+                sline.useDelimiter(":"); //To set a delimiting pattern when the programs scan ":"
                 while (sline.hasNext()) {
-                    name = sline.next();
-                    country = sline.next();
-                    String result[] = {
+                    name = sline.next(); //Display participant's name
+                    country = sline.next(); //Display participant's selected country
+                    String result[] = { //Result array to print the results of each question
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next()
                     };
-                    correct = sline.next();
-                    comboBoxName.getItems().add(name);
-                    resultList.add(result);
-                    correctList.add(correct);
+                    correct = sline.next(); //Display the total correct answers gotten
+                    comboBoxName.getItems().add(name); //If there's a participants names in result file, add name to dropdown list
+                    resultList.add(result); //Same with dropdown list (name), add result if there's results
+                    correctList.add(correct); //Same with dropdown list (name), add total correct answer if there's total correct answer
                 }
                 sline.close();
             }
@@ -123,7 +123,7 @@ public class Result extends Stage {
         }
     }
 
-    public void displayResult(int i) {
+    public void displayResult(int i) { //Function to display results
         labResultList.setText("  1.   " + resultList.get(i)[0] + "\t\t    " + "  2.   " + resultList.get(i)[1] + "\t\t    " + "  3.   " + resultList.get(i)[2] + "\t\t    "
                 + "  4.   " + resultList.get(i)[3] + "\t\t    " + "  5.   " + resultList.get(i)[4] + "\n\n" + "  6.   " + resultList.get(i)[5] + "\t\t    "
                 + "  7.   " + resultList.get(i)[6] + "\t\t    " + "  8.   " + resultList.get(i)[7] + "\t\t    " + "  9.   " + resultList.get(i)[8] + "\t\t    "
@@ -140,9 +140,9 @@ public class Result extends Stage {
         labAccuracy.setText("Accuracy: " + s + " %");
     }
 
-    public double calAccuracy(int i) {
+    public double calAccuracy(int i) { //Function to calculate the percentage
         Double accuracy = Math.floor((Double.valueOf(correctList.get(i)) / 25) * 100);
-        return Double.valueOf(df.format(accuracy));
+        return Double.valueOf(df.format(accuracy)); //returns the value in 1 decimal point format
     }
 }
 

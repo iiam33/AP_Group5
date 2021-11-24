@@ -26,7 +26,7 @@ public class Analysis extends Stage {
     private Label labAverage, labHighest, labWinner;
     private DecimalFormat df = new DecimalFormat("#.0");
 
-    public Analysis() {
+    public Analysis() { //The analysis application window
         this.setTitle("Analysis Form");
         readFromAnswerFile();
         rearrangeList();
@@ -42,6 +42,7 @@ public class Analysis extends Stage {
         leaderboardList.setPrefWidth(470);
         leaderboardList.setPrefHeight(210);
         leaderboardList.getItems().add("No" + ".\t\t\t" + "Contestant Name" + "\t\t\t" + "Country" + "\t\t\t\t\t" + "Score (%)" + "\n");
+
         for(int i = 0; i < contestantResultList.size(); i++) {
             leaderboardList.getItems().add((i + 1) + ".\t\t\t" + contestantResultList.get(i)[0] + " \t\t\t\t\t" + contestantResultList.get(i)[1] + "  \t\t\t\t\t" + calAccuracy(contestantResultList.get(i)[2]) + "\n");
         }
@@ -92,27 +93,28 @@ public class Analysis extends Stage {
         this.show();
     }
 
-    public void readFromAnswerFile() {
+    public void readFromAnswerFile() { //Function to read from file
         Scanner readFile;
         try {
             readFile = new Scanner(answerFile);
             while (readFile.hasNextLine()) {
                 String aLine = readFile.nextLine();
                 Scanner sline = new Scanner(aLine);
-                sline.useDelimiter(":");
+                sline.useDelimiter(":"); //To set a delimiting pattern when the programs scan ":"
                 while (sline.hasNext()) {
-                    name = sline.next();
-                    country = sline.next();
-                    String result[] = {
+                    name = sline.next(); //Display participant's name
+                    country = sline.next(); //Display participant's selected country
+                    String result[] = { //Result array to print the results of each question
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next(),
                             sline.next(), sline.next(), sline.next(), sline.next(), sline.next()
                     };
-                    correct = sline.next();
-                    resultList.add(result);
+                    correct = sline.next(); //Display the total correct answers gotten
+                    resultList.add(result); //If there's results in result file, then add contestant's results in result list
                     contestantResultList.add(new String[]{name, country, correct});
+                    //Add contestant's name, country and total correct answer into a String array
                 }
                 sline.close();
             }
@@ -121,7 +123,7 @@ public class Analysis extends Stage {
         }
     }
 
-    public void rearrangeList() {
+    public void rearrangeList() { //Function to re-arrange list
         int n = contestantResultList.size();
         String tmpArr[];
 
@@ -136,13 +138,15 @@ public class Analysis extends Stage {
         }
     }
 
-    public Double calAccuracy(String scoreString) {
+    public Double calAccuracy(String scoreString) { //Function to calculate the percentage
+
         Double score = Double.parseDouble(scoreString);
         Double accuracy = Math.floor((Double.valueOf(score) / 25) * 100);
-        return Double.valueOf(df.format(accuracy));
+        return Double.valueOf(df.format(accuracy)); //Return value in 1 decimal point format
     }
 
-    public Double calAverage() {
+    public Double calAverage() { //Function to calculate the average scores
+
         Double totalScore = 0.0;
         Double averageScore = 0.0;
         for(int i = 0; i < contestantResultList.size(); i++) {
@@ -153,14 +157,16 @@ public class Analysis extends Stage {
         return Double.valueOf(df.format(averageScore));
     }
 
-    public Double getHighest() {
+    public Double getHighest() { //Function to get the contestant of the highest score
+
         if(contestantResultList.size() != 0)
             return Double.valueOf(calAccuracy(contestantResultList.get(0)[2]));
         else
             return 0.0;
     }
 
-    public String getWinner() {
+    public String getWinner() { //Function to get the winner
+
         if(contestantResultList.size() != 0)
             return contestantResultList.get(0)[0];
         else

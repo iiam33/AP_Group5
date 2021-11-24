@@ -20,13 +20,15 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class Test {
-    private final int TIMELIMIT = 5;
+public class Test extends Stage {
+    private final int TIMELIMIT = 5; //Timer duration is set to 5 minutes
     private File questFile = new File("src/data/question", "inputdata.txt");
     private File resultFile = new File("src/data/question", "answers.txt");
-    private int totQues = 0;
-    private int activeQ = 1; //first question
-    private Label labQuesNo, labQues, labName;
+    private int totQues = 0; //Total Question
+    private int activeQ = 1; //First Question
+    private Label labName = new Label("");
+    private Label labQuesNo = new Label("");
+    private Label labQues = new Label("");
     private ImageView imgQues, imglabA, imglabB, imglabC, imglabD, imgFlag;
     private Label labA, labB, labC, labD;
     private RadioButton radChoice1, radChoice2, radChoice3, radChoice4;
@@ -41,16 +43,17 @@ public class Test {
     private Result result;
     private LinkedList<Question> quesList = new LinkedList<Question>();
     private int seconds = TIMELIMIT * 60;
-    private int userAnsInt[] = new int[25];
-    private String userAnsString[] = new String[25];
+    private int userAnsInt[] = new int[25]; //An array to store user's input
+    private String userAnsString[] = new String[25]; //An array to store the user's input in String format
     private String countryName = "";
 
-    public void start(Stage testStage) {
-        testStage.setTitle("Miss Universe Knowledge Test");
+    public Test(String name, String country) { //The main application window
+        this.setTitle("Miss Universe Knowledge Test");
         Label labNameDesc = new Label("Name");
         labNameDesc.setLayoutX(25);
         labNameDesc.setLayoutY(25);
         labNameDesc.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+
         labName = new Label("");
         labName.setLayoutX(75);
         labName.setLayoutY(25);
@@ -71,6 +74,7 @@ public class Test {
         labTimer.setTextFill(Color.RED);
         labTimer.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));;
         startCountdownTimer();
+        labTimer.setStyle("-fx-font-size: 10pt;-fx-font-weight:bold;");
 
         imgFlag = new ImageView();
         imgFlag.setFitHeight(60);
@@ -106,6 +110,7 @@ public class Test {
         imglabD.setFitHeight(100);
         imglabD.setFitWidth(100);
 
+        //Settings for Radio Button A to C
         labA = new Label("A");
         labA.setLayoutX(25);
         labA.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
@@ -239,9 +244,9 @@ public class Test {
             reloadQues();
         });
         btnSubmit.setOnAction(e -> {
-            submitAns();
+            submitAns(name, country);
             stopTimer();
-            testStage.hide();
+            this.hide();
             result = new Result();
         });
 
@@ -268,18 +273,16 @@ public class Test {
 
         testScene = new Scene(testPane, 650, 775);
         reloadQues();
-        testStage.hide();
-        login = new Login();
-        login.setOnHiding(e -> {
-            labName.setText(login.getName());
-            countryName = login.getCountry();
-            getFlagImg(countryName);
-            testStage.setScene(testScene);
-            testStage.show();
-        });
+        labName.setText(name);
+        countryName = country;
+        getFlagImg(countryName);
+        startCountdownTimer();
+        playCountdownSound();
+        this.setScene(testScene);
+        this.show();
     }
 
-    public void reloadQues() {
+    public void reloadQues() { //This functions refreshes the question when clicked 'Next' or 'Previous' button
         labQuesNo.setText("Question " + Integer.toString(activeQ) + " of " + quesList.size());
         labQues.setText(quesList.get(activeQ-1).getTheQues());
         labQues.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
@@ -364,7 +367,7 @@ public class Test {
         radChoice4.setSelected(quesList.get(activeQ-1).getSelected(3));
     }
 
-    public void readFromFile() {
+    public void readFromFile() { //This function reads the content from the file
         Scanner sfile;
         int type;
         char answer;
@@ -409,18 +412,18 @@ public class Test {
             }
             sfile.close();
         }
-        catch (FileNotFoundException e) {
+        catch (FileNotFoundException e) { //Print an error saying when result file does not exist
             System.out.println("File to read " + questFile + " not found!");
         }
     }
 
-    public void getFlagImg(String cname) {
+    public void getFlagImg(String cname) { //Get image from contestant file
         File imgFile = new File("src/data/contestant/flag/" + cname + ".png");
         Image img = new Image(imgFile.toURI().toString());
         imgFlag.setImage(img);
     }
 
-    public void startCountdownTimer() {
+    public void startCountdownTimer() { //Function to start the countdown timer
         timerThread = new Thread(() -> {
             while (true) {
                 try {
@@ -430,10 +433,10 @@ public class Test {
                 }
                 Platform.runLater(() -> {
                     seconds--;
-                    labTimer.setText("Time left: " + displayRemainTime());
+                    labTimer.setText("Time left: " + displayRemainTime()); //Display the remaining time
                     setSecond(seconds);
                     if (seconds == 60) {
-                        playCountdownSound();
+                        playOneMinSound();
                     }
                     if (seconds == 0) {
                         System.exit(0);
@@ -443,23 +446,23 @@ public class Test {
         });   timerThread.start();
     }
 
-    public String displayRemainTime() {
+    public String displayRemainTime() { //Function to display remaining time
         int min = seconds / 60;
         int minTosec = min * 60;
         int sec = seconds - minTosec;
-        String time = String.format("0" + "%d:%02d", min, sec);
+        String time = String.format("0" + "%d:%02d", min, sec); //Display time in the format of xx minutes xx seconds
         return time;
     }
 
-    public void setSecond(int s) {
+    public void setSecond(int s) { //Function to update timer so it change along the way
         seconds = s;
     }
 
-    public void stopTimer() {
+    public void stopTimer() { //Function to stop timer
         timerThread.stop();
     }
 
-    public void playCountdownSound() {
+    public void playOneMinSound() { //Function to play custom music when the time is approaching the limit
         File soundFile =  new File("src/data/question/audio/one_min_remaining.wav").getAbsoluteFile();
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
@@ -467,12 +470,25 @@ public class Test {
             myClip.open(ais);
             myClip.start();
         }
-        catch(Exception e) {
+        catch(Exception e) { //Print an error saying when result file does not exist
             System.out.println(e);
         }
     }
 
-    public void convertUserAnsToString() {
+    public void playCountdownSound() { //Function to play custom music when the timer starts
+        File soundFile =  new File("src/data/question/audio/five_min_remaining.wav").getAbsoluteFile();
+        try {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
+            Clip myClip = AudioSystem.getClip();
+            myClip.open(ais);
+            myClip.start();
+        }
+        catch(Exception e) { //Print an error saying when result file does not exist
+            System.out.println(e);
+        }
+    }
+
+    public void convertUserAnsToString() { //Function to convert user's input (int) to Strings (Alphabets)
         for(int i = 0; i < 25; i++) {
             if(userAnsInt[i] == 1)
                 userAnsString[i] = "A";
@@ -483,19 +499,20 @@ public class Test {
             else if(userAnsInt[i] == 4)
                 userAnsString[i] = "D";
             else
-                userAnsString[i] = "null";
+                userAnsString[i] = "null"; //If the user did not choose an answer, it will return null
         }
     }
 
-    public void submitAns(){
+    public void submitAns(String name, String country){ //Function to submit and save the answer into external files
         reloadQues();
         convertUserAnsToString();
         int correct = compareAns();
         try{
+            //Write the user inputs into answers.txt
             PrintWriter fw = new PrintWriter(new FileWriter("src/data/result/answers.txt", true));
             PrintWriter pw = new PrintWriter(fw);
-            pw.print(labName.getText() + ":");
-            pw.print(login.getCountry() + ":");
+            pw.print(name + ":");
+            pw.print(country + ":");
 
             for (int i = 0; i < userAnsString.length; i++){
                 pw.print(userAnsString[i] + ":");
@@ -505,19 +522,20 @@ public class Test {
             pw.println();
             pw.close();
         }
-        catch(IOException e){
+        catch(IOException e){ //Print an error saying when result file does not exist
             System.out.println("File to read " + resultFile + " not found!");
         }
     }
 
-    public int compareAns() {
-        int count = 0;
+    public int compareAns() {//Function to compare user's input answer and pre-existing answer
+        int count = 0; //Initiate count
         char tempAns;
 
         for (int i = 0; i < userAnsInt.length; i++) {
-            tempAns = userAnsString[i].charAt(0);
+            tempAns = userAnsString[i].charAt(0); //Get the first character from userAnsString and store it in tempAns
 
-            if (tempAns == (quesList.get(i).getAns())) {
+            if (tempAns == (quesList.get(i).getAns())) { /* If the user answer matches the existing
+            answer then execute if else statement */
                 count++;
             }
         }

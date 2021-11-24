@@ -14,7 +14,6 @@ public class Main extends Application {
     private Scene mainScene;
     private Button btnLogin, btnResult, btnAnalysis;
     private Pane mainPane;
-    private Test test = new Test();
 
     @Override
     public void start(Stage mainStage) {
@@ -34,7 +33,8 @@ public class Main extends Application {
         btnLogin.setLayoutX(170);
         btnLogin.setLayoutY(160);
         btnLogin.setOnAction(e -> {
-            test.start(mainStage);
+            new Login();
+            mainStage.hide();
         });
 
         btnResult = new Button("Result");
