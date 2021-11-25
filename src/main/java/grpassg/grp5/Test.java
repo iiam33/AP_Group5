@@ -72,8 +72,7 @@ public class Test extends Stage {
 
         labTimer.setText("Time left: " + "");
         labTimer.setTextFill(Color.RED);
-        labTimer.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));;
-        startCountdownTimer();
+        labTimer.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
         labTimer.setStyle("-fx-font-size: 10pt;-fx-font-weight:bold;");
 
         imgFlag = new ImageView();
