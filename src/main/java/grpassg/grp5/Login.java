@@ -31,7 +31,7 @@ public class Login extends Stage { //Login application window
     private File contestantFile = new File("src/data/contestant", "contestant.txt");
 
     public Login() {
-        this.setTitle("Contestant Entry Form");
+        this.setTitle("Login Form");
         readFromContestantFile();
 
         Label labName = new Label("Select your name");
